@@ -1,0 +1,4 @@
+messages:
+  motd:
+    normal: '&3&lNEXT PLUGINS &7[1.8]\n&fTeste os sistemas da &bNext &faqui'
+    whitelist: '&3&lNEXT PLUGINS &7[1.8]\n&fEstamos em &cmanutenção&f, voltamos já'
