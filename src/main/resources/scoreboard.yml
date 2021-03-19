@@ -6,6 +6,7 @@ scoreboard:
     - ''
     - ' &a⊦ Informações:'
     - ''
+    - '  &fGrupo: %nexttestserver_group%'
     - '  &fCoins: &a₿ %nexteconomy_amount%'
     - '  &fCash: &6✪ %nextcash_amount%'
     - '  &fTempo online: &e☾ %onlinetime_time%'

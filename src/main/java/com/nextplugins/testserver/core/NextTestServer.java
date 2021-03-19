@@ -15,6 +15,8 @@ import com.nextplugins.testserver.core.commands.UsualCommand;
 import com.nextplugins.testserver.core.configuration.registry.ConfigurationRegistry;
 import com.nextplugins.testserver.core.configuration.values.ConfigValue;
 import com.nextplugins.testserver.core.guice.PluginModule;
+import com.nextplugins.testserver.core.manager.ScoreboardManager;
+import com.nextplugins.testserver.core.placeholder.registry.PlaceholderRegistry;
 import com.nextplugins.testserver.core.registry.AutomaticRegistry;
 import lombok.Getter;
 import me.bristermitten.pdm.PluginDependencyManager;
@@ -30,6 +32,7 @@ public final class NextTestServer extends JavaPlugin {
 
     @Inject private GroupStorage groupStorage;
     @Inject private AccountStorage accountStorage;
+    @Inject private ScoreboardManager scoreboardManager;
 
     public static NextTestServer getInstance() {
         return getPlugin(NextTestServer.class);
@@ -47,11 +50,14 @@ public final class NextTestServer extends JavaPlugin {
             this.injector = PluginModule.of(this).createInjector();
             this.injector.injectMembers(this);
 
+            PlaceholderRegistry.enable(this);
+
             registerUpdater();
             registerCommands();
 
             this.groupStorage.init();
             this.accountStorage.init();
+            this.scoreboardManager.init();
 
         });
 
