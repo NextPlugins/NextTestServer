@@ -1,27 +1,20 @@
 package com.nextplugins.testserver.core.registry;
 
 import com.google.common.reflect.ClassPath;
-import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.registry.dao.IRegistry;
-import lombok.Data;
-
-import java.util.logging.Logger;
+import org.bukkit.plugin.Plugin;
 
 /**
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
  */
 
-@Data(staticConstructor = "createDefault")
 public class AutomaticRegistry {
-
-    private static final Logger LOGGER = NextTestServer.getInstance().getLogger();
-
-    public void init() {
+    public static void enable(Plugin plugin) {
 
         try {
 
-            ClassPath classPath = ClassPath.from(getClass().getClassLoader());
+            ClassPath classPath = ClassPath.from(AutomaticRegistry.class.getClassLoader());
 
             String packageName = "com.nextplugins.testserver.core.registry.dao.impl";
             for (ClassPath.ClassInfo classInfo : classPath.getTopLevelClassesRecursive(packageName)) {
@@ -37,7 +30,7 @@ public class AutomaticRegistry {
         } catch (Exception exception) {
 
             exception.printStackTrace();
-            LOGGER.severe("Failed to read a registry");
+            plugin.getLogger().severe("Failed to read a registry");
 
         }
 

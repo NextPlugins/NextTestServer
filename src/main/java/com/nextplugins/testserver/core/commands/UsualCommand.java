@@ -18,7 +18,7 @@ import java.util.List;
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
  */
-public class OtherCommand {
+public class UsualCommand {
 
     @Command(
             name = "plugins",

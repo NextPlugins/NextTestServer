@@ -1,4 +1,4 @@
-package com.nextplugins.testserver.core.api.group.models;
+package com.nextplugins.testserver.core.api.model.group;
 
 import com.nextplugins.testserver.core.utils.ColorUtils;
 import lombok.AllArgsConstructor;

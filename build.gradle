@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.github.HenryFabio:inventory-api:2.0.3'
     implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
     implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
+    implementation 'com.github.HenryFabio:github-updater:main-SNAPSHOT'
 
     pdm 'com.github.SaiintBrisson:command-framework:1.1.0'
 
@@ -58,7 +59,6 @@ bukkit {
     website = 'https://github.com/NextPlugins'
     version = "${project.version}"
     load = 'STARTUP'
-    softDepend = ['Vault']
 }
 
 shadowJar {
