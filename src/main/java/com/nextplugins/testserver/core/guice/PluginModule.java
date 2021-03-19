@@ -5,6 +5,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
 import com.nextplugins.testserver.core.NextTestServer;
+import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
+import com.nextplugins.testserver.core.api.model.player.Account;
+import com.nextplugins.testserver.core.api.model.player.dao.adapter.AccountAdapter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,6 +28,8 @@ public class PluginModule extends AbstractModule {
         bind(Logger.class)
                 .annotatedWith(Names.named("main"))
                 .toInstance(nextTestServer.getLogger());
+
+        requestStaticInjection(Account.class, AccountAdapter.class, GroupUtils.class);
 
     }
 

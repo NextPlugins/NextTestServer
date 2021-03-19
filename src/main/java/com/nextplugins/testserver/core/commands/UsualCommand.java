@@ -67,12 +67,12 @@ public class UsualCommand {
         }
 
         context.getSender().sendMessage(ColorUtils.colored(
-                "&fTodos os plugins usados no &6Lyces&f: &8(" + plugins.size() + " plugins)",
+                String.format("&fTodos os plugins usados no &6Lyces&f: &8(%s plugins)", plugins.size()),
                 "",
-                "&fPlugins &epróprios&f: &8(" + ownPlugins.size() + " plugins)",
+                String.format("&fPlugins &epróprios&f: &8(%s plugins)", ownPlugins.size()),
                 PluginInformationUtils.concatPlugins(ownPlugins),
                 "",
-                "&fPlugins &3públicos&f: &8(" + otherPlugins.size() + " plugins)",
+                String.format("&fPlugins &3públicos&f: &8(%s plugins)", otherPlugins.size()),
                 PluginInformationUtils.concatPlugins(otherPlugins),
                 "")
         );

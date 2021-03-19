@@ -31,15 +31,6 @@ public final class AccountDAO {
         );
     }
 
-    public Set<Account> selectAll(String query) {
-        return sqlExecutor.resultManyQuery(
-                "SELECT * FROM " + TABLE + " " + query,
-                k -> {
-                },
-                AccountAdapter.class
-        );
-    }
-
     public void update(Account account) {
 
         this.sqlExecutor.updateQuery(
@@ -47,7 +38,7 @@ public final class AccountDAO {
                 statement -> {
 
                     statement.set(1, account.getPlayer().getUniqueId().toString());
-                    statement.set(2, account.getGroup().toString());
+                    statement.set(2, account.getGroup().getName());
 
                 }
         );

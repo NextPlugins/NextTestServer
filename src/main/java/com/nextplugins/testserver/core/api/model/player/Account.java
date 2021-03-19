@@ -1,11 +1,15 @@
 package com.nextplugins.testserver.core.api.model.player;
 
+import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
+import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import lombok.Builder;
 import lombok.Data;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
+
+import java.util.List;
 
 /**
  * @author Yuhtin
@@ -16,10 +20,13 @@ import org.bukkit.permissions.PermissionAttachment;
 @Builder(builderMethodName = "create", buildMethodName = "wrap")
 public class Account {
 
+    @Inject private static GroupStorage groupStorage;
+
     private Player player;
     private PermissionAttachment attachment;
+    private Group group;
 
-    @Builder.Default private Group group = Group.MEMBER;
+    private List<String> permissions;
 
     public static AccountBuilder of(Player player) {
 
@@ -27,7 +34,8 @@ public class Account {
 
         return Account.create()
                 .player(player)
-                .attachment(attachment);
+                .attachment(attachment)
+                .group(groupStorage.getGroupByName("Membro"));
 
     }
 
