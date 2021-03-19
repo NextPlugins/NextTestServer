@@ -16,8 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class AccountConnectionListener implements Listener {
 
-    @Inject
-    private AccountStorage accountStorage;
+    @Inject private AccountStorage accountStorage;
 
     @EventHandler
     public void loadPlayer(PlayerJoinEvent event) {
