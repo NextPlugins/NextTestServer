@@ -10,6 +10,7 @@ import org.bukkit.plugin.Plugin;
  */
 
 public class AutomaticRegistry {
+
     public static void enable(Plugin plugin) {
 
         try {

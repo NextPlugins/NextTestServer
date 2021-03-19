@@ -5,7 +5,6 @@ import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.dao.adapter.AccountAdapter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Set;
 import java.util.UUID;
 
 @RequiredArgsConstructor
