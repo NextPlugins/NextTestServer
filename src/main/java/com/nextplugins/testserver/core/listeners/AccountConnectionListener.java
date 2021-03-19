@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
+import com.nextplugins.testserver.core.manager.LocationManager;
+import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,6 +19,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class AccountConnectionListener implements Listener {
 
     @Inject private AccountStorage accountStorage;
+    @Inject private LocationManager locationManager;
 
     @EventHandler
     public void loadPlayer(PlayerJoinEvent event) {
@@ -25,6 +28,11 @@ public class AccountConnectionListener implements Listener {
                 NextTestServer.getInstance(),
                 () -> accountStorage.loadPlayer(event.getPlayer())
         );
+
+        val spawn = locationManager.getLocation("spawn");
+        if (spawn == null) return;
+
+        event.getPlayer().teleport(spawn);
 
     }
 

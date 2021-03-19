@@ -15,6 +15,7 @@ import com.nextplugins.testserver.core.commands.UsualCommand;
 import com.nextplugins.testserver.core.configuration.registry.ConfigurationRegistry;
 import com.nextplugins.testserver.core.configuration.values.ConfigValue;
 import com.nextplugins.testserver.core.guice.PluginModule;
+import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.ScoreboardManager;
 import com.nextplugins.testserver.core.placeholder.registry.PlaceholderRegistry;
 import com.nextplugins.testserver.core.registry.AutomaticRegistry;
@@ -32,6 +33,7 @@ public final class NextTestServer extends JavaPlugin {
 
     @Inject private GroupStorage groupStorage;
     @Inject private AccountStorage accountStorage;
+    @Inject private LocationManager locationManager;
     @Inject private ScoreboardManager scoreboardManager;
 
     public static NextTestServer getInstance() {
@@ -58,6 +60,7 @@ public final class NextTestServer extends JavaPlugin {
             this.groupStorage.init();
             this.accountStorage.init();
             this.scoreboardManager.init();
+            this.locationManager.init();
 
         });
 
