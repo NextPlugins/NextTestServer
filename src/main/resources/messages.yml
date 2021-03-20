@@ -2,3 +2,17 @@ messages:
   motd:
     normal: '&3&lNEXT PLUGINS &7[1.8]\n&fTeste os sistemas da &bNext &faqui'
     whitelist: '&3&lNEXT PLUGINS &7[1.8]\n&fEstamos em &cmanutenção&f, voltamos já'
+  tablist:
+    header:
+      - '&3&lNEXT PLUGINS'
+      - '&e    teste.nextplugins.tk'
+    footer:
+      - '&7'
+      - '&bDiscord: &fnextplugins.tk/discord'
+      - '&bTwitter: &fnextplugins.tk/twitter'
+      - '&bLoja: &cEm manutenção'
+      - '&7'
+      - '&3Evolua o seu servidor usando os plugins da &bNext&f: &8nextplugins.tk/discord'
+  teleport:
+    teleporting: '&6&LWARP<nl>&fAguarde %time%s para viajar até o local'
+    teleported: '&6&LWARP<nl>&fVocê chegou a warp %warp%'

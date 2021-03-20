@@ -19,7 +19,7 @@ repositories {
 
     // spigot
 
-    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'http://maven.elmakers.com/repository/' }
     maven { url = 'https://oss.sonatype.org/content/groups/public/' }
 
     // libs
@@ -28,17 +28,19 @@ repositories {
     maven { url = 'https://repo.citizensnpcs.co/' }
 
     maven { url = 'https://jitpack.io/' }
+
 }
 
 dependencies {
 
-    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'com.github.PlaceholderAPI:PlaceholderAPI:2.10.9'
 
     implementation 'com.github.HenryFabio:inventory-api:2.0.3'
     implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
-    implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
     implementation 'com.github.HenryFabio:github-updater:main-SNAPSHOT'
+    implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
+
     //implementation 'fr.minuskube:netherboard-bukkit:1.2.1'
 
     pdm 'fr.minuskube:netherboard-bukkit:1.2.1'

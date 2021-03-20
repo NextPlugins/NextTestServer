@@ -20,7 +20,7 @@ public final class ConfigurationRegistry {
 
         configurationInjector.injectConfiguration(
                 ConfigValue.instance(),
-                MessagesValue.instance(),
+                MessageValue.instance(),
                 PermissionsValue.instance(),
                 LocationValue.instance(),
                 ScoreboardValue.instance()

@@ -12,14 +12,17 @@ import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import com.nextplugins.testserver.core.api.model.player.command.AccountCommand;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
 import com.nextplugins.testserver.core.commands.UsualCommand;
+import com.nextplugins.testserver.core.commands.WarpCommand;
 import com.nextplugins.testserver.core.configuration.registry.ConfigurationRegistry;
 import com.nextplugins.testserver.core.configuration.values.ConfigValue;
 import com.nextplugins.testserver.core.guice.PluginModule;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.ScoreboardManager;
+import com.nextplugins.testserver.core.manager.TablistManager;
 import com.nextplugins.testserver.core.placeholder.registry.PlaceholderRegistry;
 import com.nextplugins.testserver.core.registry.AutomaticRegistry;
 import lombok.Getter;
+import lombok.val;
 import me.bristermitten.pdm.PluginDependencyManager;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +38,7 @@ public final class NextTestServer extends JavaPlugin {
     @Inject private AccountStorage accountStorage;
     @Inject private LocationManager locationManager;
     @Inject private ScoreboardManager scoreboardManager;
+    @Inject private TablistManager tablistManager;
 
     public static NextTestServer getInstance() {
         return getPlugin(NextTestServer.class);
@@ -61,6 +65,7 @@ public final class NextTestServer extends JavaPlugin {
             this.accountStorage.init();
             this.scoreboardManager.init();
             this.locationManager.init();
+            this.tablistManager.init();
 
         });
 
@@ -94,17 +99,20 @@ public final class NextTestServer extends JavaPlugin {
 
         BukkitFrame bukkitFrame = new BukkitFrame(this);
 
-        UsualCommand usualCommand = new UsualCommand();
-        GroupCommand groupCommand = new GroupCommand();
-        AccountCommand accountCommand = new AccountCommand();
+        val usualCommand = new UsualCommand();
+        val warpCommand = new WarpCommand();
+        val groupCommand = new GroupCommand();
+        val accountCommand = new AccountCommand();
 
+        this.injector.injectMembers(warpCommand);
         this.injector.injectMembers(groupCommand);
         this.injector.injectMembers(accountCommand);
 
         bukkitFrame.registerCommands(
+                warpCommand,
                 usualCommand,
-                accountCommand,
-                groupCommand
+                groupCommand,
+                accountCommand
         );
 
     }

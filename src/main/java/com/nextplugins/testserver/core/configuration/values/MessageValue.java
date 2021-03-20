@@ -19,14 +19,20 @@ import java.util.function.Function;
 @ConfigSection("messages")
 @ConfigFile("messages.yml")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MessagesValue implements ConfigurationInjectable {
+public final class MessageValue implements ConfigurationInjectable {
 
-    @Getter private static final MessagesValue instance = new MessagesValue();
+    @Getter private static final MessageValue instance = new MessageValue();
 
     @ConfigField("motd.normal") private String motd;
     @ConfigField("motd.whitelist") private String motdWhitelist;
 
-    public static <T> T get(Function<MessagesValue, T> function) {
+    @ConfigField("tablist.header") private List<String> tablistHeader;
+    @ConfigField("tablist.footer") private List<String> tablistFooter;
+
+    @ConfigField("teleport.teleporting") private String teleporting;
+    @ConfigField("teleport.teleported") private String teleported;
+
+    public static <T> T get(Function<MessageValue, T> function) {
         return function.apply(instance);
     }
 

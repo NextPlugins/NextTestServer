@@ -5,6 +5,7 @@ import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
 import com.nextplugins.testserver.core.manager.LocationManager;
+import com.nextplugins.testserver.core.manager.TablistManager;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -20,13 +21,17 @@ public class AccountConnectionListener implements Listener {
 
     @Inject private AccountStorage accountStorage;
     @Inject private LocationManager locationManager;
+    @Inject private TablistManager tablistManager;
 
     @EventHandler
     public void loadPlayer(PlayerJoinEvent event) {
 
         Bukkit.getScheduler().runTaskAsynchronously(
                 NextTestServer.getInstance(),
-                () -> accountStorage.loadPlayer(event.getPlayer())
+                () -> {
+                    accountStorage.loadPlayer(event.getPlayer());
+                    tablistManager.sendTablist(event.getPlayer());
+                }
         );
 
         val spawn = locationManager.getLocation("spawn");

@@ -27,7 +27,7 @@ public final class LocationManager {
             val line = section.getString(key);
 
             Location location = LocationUtils.fromString(line.split(","));
-            locationMap.put(key.toLowerCase(), location);
+            locationMap.put(key, location);
 
         }
 
@@ -52,7 +52,16 @@ public final class LocationManager {
     }
 
     public Location getLocation(String name) {
-        return locationMap.get(name.toLowerCase());
+
+        val locationName = locationMap.keySet()
+                .stream()
+                .filter(location -> location.equalsIgnoreCase(name))
+                .findAny()
+                .orElse(null);
+
+        if (locationName == null) return null;
+
+        return locationMap.get(locationName);
     }
 
 }
