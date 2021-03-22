@@ -1,13 +1,13 @@
 groups:
-  MEMBER('i', 0, "Membro", ColorUtils.colored("&a[Membro]")),
-  CLIENT('h', 1, "Cliente", ColorUtils.colored("&b[Cliente]")),
-  BOOSTER('g', 2, "Booster", ColorUtils.colored("&d[Booster]")),
-  PARTNER('f', 3, "Parceiro", ColorUtils.colored("&c[Parceiro]")),
-  YOUTUBER('e', 4, "Youtuber", ColorUtils.colored("&c[Youtuber]")),
-  HELPER('d', 5, "Suporte", ColorUtils.colored("&6[Suporte]")),
-  ADMIN('c', 6, "Admin", ColorUtils.colored("&4[Admin]")),
-  NEXT('b', 7, "Next", ColorUtils.colored("&3[Next]")),
-  CONSOLE('a', 8, "Console", ColorUtils.colored("&e[Console]"));
+  # MEMBER('i', 0, "Membro", ColorUtils.colored("&a[Membro]")),
+  # CLIENT('h', 1, "Cliente", ColorUtils.colored("&b[Cliente]")),
+  # BOOSTER('g', 2, "Booster", ColorUtils.colored("&d[Booster]")),
+  # PARTNER('f', 3, "Parceiro", ColorUtils.colored("&c[Parceiro]")),
+  # YOUTUBER('e', 4, "Youtuber", ColorUtils.colored("&c[Youtuber]")),
+  # HELPER('d', 5, "Suporte", ColorUtils.colored("&6[Suporte]")),
+  # ADMIN('c', 6, "Admin", ColorUtils.colored("&4[Admin]")),
+  # NEXT('b', 7, "Next", ColorUtils.colored("&3[Next]")),
+  # CONSOLE('a', 8, "Console", ColorUtils.colored("&e[Console]"));
   # Default group
   Membro:
     permissions:

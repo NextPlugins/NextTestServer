@@ -14,7 +14,6 @@ import com.nextplugins.testserver.core.manager.ScoreboardManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
 import com.nextplugins.testserver.core.manager.UpdaterManager;
 import com.nextplugins.testserver.core.placeholder.registry.PlaceholderRegistry;
-import com.nextplugins.testserver.core.registry.AutomaticRegistry;
 import lombok.Getter;
 import me.bristermitten.pdm.PluginDependencyManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -60,6 +59,8 @@ public final class NextTestServer extends JavaPlugin {
             this.locationManager.init();
             this.scoreboardManager.init();
 
+            this.getLogger().info("Plugin enabled successfully");
+
         });
 
     }
@@ -69,6 +70,7 @@ public final class NextTestServer extends JavaPlugin {
 
 
         this.groupStorage.unload();
+        this.accountStorage.unload();
         this.locationManager.unload();
 
     }

@@ -5,7 +5,6 @@ import com.nextplugins.testserver.core.manager.LocationManager;
 import lombok.val;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 /**

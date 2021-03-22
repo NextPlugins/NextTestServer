@@ -3,7 +3,6 @@ package com.nextplugins.testserver.core.api.model.player.command;
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
-import com.nextplugins.testserver.core.utils.ColorUtils;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.annotation.Optional;

@@ -3,7 +3,6 @@ package com.nextplugins.testserver.core.api.model.player.storage;
 import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.dao.AccountDAO;
 import com.nextplugins.testserver.core.api.model.player.utils.AccountUtils;
-import com.nextplugins.testserver.core.manager.ScoreboardManager;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
@@ -44,6 +43,10 @@ public final class AccountStorage {
         AccountUtils.updateAttachment(account);
         return account;
 
+    }
+
+    public void unload() {
+        getOnlinePlayers().forEach(this::purgeData);
     }
 
     public void purgeData(Account account) {

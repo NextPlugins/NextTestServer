@@ -2,7 +2,6 @@ package com.nextplugins.testserver.core.configuration.values;
 
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
-import com.henryfabio.minecraft.configinjector.common.annotations.ConfigSection;
 import com.henryfabio.minecraft.configinjector.common.annotations.TranslateColors;
 import com.henryfabio.minecraft.configinjector.common.injector.ConfigurationInjectable;
 import lombok.AccessLevel;
