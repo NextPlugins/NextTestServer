@@ -33,7 +33,7 @@ public final class LocationManager {
 
     }
 
-    public void saveLocations() {
+    public void unload() {
 
         val file = new File("locations.yml");
         val configuration = YamlConfiguration.loadConfiguration(file);

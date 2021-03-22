@@ -50,7 +50,7 @@ public class GroupStorage {
 
     }
 
-    public void purge() {
+    public void unload() {
 
         val file = new File("groups.yml");
         val configuration = YamlConfiguration.loadConfiguration(file);
