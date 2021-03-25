@@ -3,21 +3,22 @@ package com.nextplugins.testserver.core.api.model.player.dao;
 import com.henryfabio.sqlprovider.executor.SQLExecutor;
 import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.dao.adapter.AccountAdapter;
-import lombok.RequiredArgsConstructor;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.UUID;
 
-@RequiredArgsConstructor
+@Singleton
 public final class AccountDAO {
 
-    private final String TABLE = "data_players";
+    private static final String TABLE = "data_players";
 
-    private final SQLExecutor sqlExecutor;
+    @Inject private SQLExecutor sqlExecutor;
 
     public void createTable() {
         sqlExecutor.updateQuery("CREATE TABLE IF NOT EXISTS " + TABLE + "(" +
                 "owner CHAR(36) NOT NULL PRIMARY KEY," +
-                "group TEXT NOT NULL" +
+                "group TEXT" +
                 ");"
         );
     }

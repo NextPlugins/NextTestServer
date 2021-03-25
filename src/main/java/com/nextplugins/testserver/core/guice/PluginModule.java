@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
+import com.henryfabio.sqlprovider.executor.SQLExecutor;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
 import com.nextplugins.testserver.core.api.model.player.Account;
@@ -28,6 +29,9 @@ public class PluginModule extends AbstractModule {
         bind(Logger.class)
                 .annotatedWith(Names.named("main"))
                 .toInstance(nextTestServer.getLogger());
+
+        bind(SQLExecutor.class)
+                .toInstance(new SQLExecutor(nextTestServer.getSqlConnector()));
 
         requestStaticInjection(Account.class, AccountAdapter.class, GroupUtils.class);
 
