@@ -1,5 +1,6 @@
 package com.nextplugins.testserver.core.api.model.player;
 
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
@@ -35,6 +36,7 @@ public class Account {
         return Account.create()
                 .player(player)
                 .attachment(attachment)
+                .permissions(Lists.newArrayList())
                 .group(groupStorage.getGroupByName("Membro"));
 
     }

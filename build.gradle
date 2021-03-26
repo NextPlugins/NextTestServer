@@ -62,6 +62,7 @@ bukkit {
     website = 'https://github.com/NextPlugins'
     version = "${project.version}"
     depend = ['PlaceholderAPI']
+    loadBefore = ['NextUpdater']
     load = 'STARTUP'
 }
 
