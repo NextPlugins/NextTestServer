@@ -35,15 +35,13 @@ dependencies {
 
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'com.github.PlaceholderAPI:PlaceholderAPI:2.10.9'
-    implementation 'com.github.HenryFabio:github-updater:98849d1a40'
+
     implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
-
-    //implementation 'fr.minuskube:netherboard-bukkit:1.2.1'
-
     implementation 'com.github.HenryFabio:inventory-api:2.0.3'
     implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
     implementation 'fr.minuskube:netherboard-bukkit:1.2.1'
-    pdm 'com.github.SaiintBrisson:command-framework:1.1.0'
+
+    pdm 'com.github.SaiintBrisson:command-framework:1.2.0'
 
     pdm "com.google.inject:guice:4.0"
     pdm "javax.inject:javax.inject:1"
@@ -63,7 +61,7 @@ bukkit {
     version = "${project.version}"
     depend = ['PlaceholderAPI']
     loadBefore = ['NextUpdater']
-    load = 'STARTUP'
+    load = 'POSTWORLD'
 }
 
 shadowJar {

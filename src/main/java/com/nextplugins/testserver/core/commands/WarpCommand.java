@@ -18,13 +18,12 @@ import org.bukkit.entity.Player;
  */
 public class WarpCommand {
 
-    @Inject
-    private LocationManager locationManager;
+    @Inject private LocationManager locationManager;
 
     @Command(
             name = "warp",
             aliases = {"locais"},
-            usage = "/warp <local>",
+            usage = "warp <local>",
             target = CommandTarget.PLAYER,
             async = true
     )
@@ -52,7 +51,7 @@ public class WarpCommand {
     @Command(
             name = "setwarp",
             aliases = {"setlocal"},
-            usage = "/setwarp <local>",
+            usage = "setwarp <local>",
             target = CommandTarget.PLAYER,
             async = true
     )
@@ -71,7 +70,7 @@ public class WarpCommand {
     @Command(
             name = "delwarp",
             aliases = {"dellocal"},
-            usage = "/delwarp <local>",
+            usage = "delwarp <local>",
             target = CommandTarget.PLAYER,
             async = true
     )

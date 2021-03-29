@@ -55,9 +55,9 @@ public final class NextTestServer extends JavaPlugin {
                 this.injector.injectMembers(this);
 
                 ConfigurationRegistry.enable(this);
-                CommandRegistry.enable(this);
-                ListenerRegistry.enable(this);
                 PlaceholderRegistry.enable(this);
+                ListenerRegistry.enable(this);
+                CommandRegistry.enable(this);
 
                 this.groupStorage.init();
                 this.accountStorage.init();

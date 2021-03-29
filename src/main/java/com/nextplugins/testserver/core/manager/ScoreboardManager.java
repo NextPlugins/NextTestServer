@@ -13,9 +13,10 @@ import org.bukkit.entity.Player;
 import javax.inject.Singleton;
 
 /**
-    This class is to organize some functions of the scoreboard,
-    but the original system is the NetherBoard
-    @author https://github.com/MinusKube/Netherboard
+ * This class is to organize some functions of the scoreboard,
+ * but the original system is the NetherBoard
+ *
+ * @author https://github.com/MinusKube/Netherboard
  */
 
 @Singleton
@@ -41,7 +42,7 @@ public class ScoreboardManager {
         val lines = ScoreboardValue.get(ScoreboardValue::lines);
         for (int i = 0; i < lines.size(); i++) {
 
-            val line = lines.get(i);
+            val line = lines.get(lines.size() - (1 + i));
             scoreboard.set(PlaceholderAPI.setPlaceholders(player, line), i);
 
         }

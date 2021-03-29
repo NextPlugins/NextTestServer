@@ -17,8 +17,9 @@ public final class AccountDAO {
 
     public void createTable() {
         sqlExecutor.updateQuery("CREATE TABLE IF NOT EXISTS " + TABLE + "(" +
-                "owner CHAR(36) NOT NULL PRIMARY KEY," +
-                "group TEXT" +
+                "owner CHAR(36) NOT NULL PRIMARY KEY UNIQUE," +
+                "userGroup TEXT," +
+                "permissions TEXT" +
                 ");"
         );
     }
@@ -34,11 +35,12 @@ public final class AccountDAO {
     public void update(Account account) {
 
         this.sqlExecutor.updateQuery(
-                String.format("REPLACE INTO %s VALUES(?,?)", TABLE),
+                String.format("REPLACE INTO %s VALUES(?,?,?)", TABLE),
                 statement -> {
 
                     statement.set(1, account.getPlayer().getUniqueId().toString());
                     statement.set(2, account.getGroup().getName());
+                    statement.set(3, String.join(",", account.getPermissions()));
 
                 }
         );

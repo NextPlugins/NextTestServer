@@ -6,8 +6,8 @@ import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
-import lombok.val;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -34,7 +34,7 @@ public class AccountConnectionListener implements Listener {
                 }
         );
 
-        val spawn = locationManager.getLocation("spawn");
+        Location spawn = locationManager.getLocation("spawn");
         if (spawn == null) return;
 
         event.getPlayer().teleport(spawn);

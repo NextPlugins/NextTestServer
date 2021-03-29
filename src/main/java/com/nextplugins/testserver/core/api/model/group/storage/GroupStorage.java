@@ -29,30 +29,37 @@ public class GroupStorage {
     public void init() {
 
         val section = PermissionsValue.get(PermissionsValue::section);
-        for (Group group : GroupParser.of(section).parseSectionList()) {
-            groups.put(group.getName().toLowerCase(), group);
-        }
+        GroupParser.of(section).parseSectionList().forEach(this::register);
 
+    }
+
+    public void register(Group group) {
+        groups.put(group.getName(), group);
+    }
+
+    public void unregister(String name) {
+        groups.remove(name);
     }
 
     public Group getGroupByName(String name) {
-        return groups.getOrDefault(name.toLowerCase(), null);
+
+        val groupEntry = groups.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().equalsIgnoreCase(name))
+                .findAny()
+                .orElse(null);
+
+        return groupEntry == null ? null : groupEntry.getValue();
+
     }
 
-    public List<String> getGroups() {
-
-        List<String> groupNames = Lists.newArrayList();
-
-        // get formated name (without lowercase)
-        groups.values().forEach(group -> groupNames.add(group.getName()));
-
-        return groupNames;
-
+    public List<String> getGroupNames() {
+        return Lists.newArrayList(this.groups.keySet());
     }
 
     public void unload() {
 
-        val file = new File("groups.yml");
+        val file = new File(NextTestServer.getInstance().getDataFolder(), "groups.yml");
         val configuration = YamlConfiguration.loadConfiguration(file);
 
         val groups = this.groups.values();

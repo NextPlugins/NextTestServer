@@ -17,7 +17,7 @@ import java.util.Map;
 @Singleton
 public final class LocationManager {
 
-    private final Map<String, Location> locationMap = Maps.newLinkedHashMap();;
+    private final Map<String, Location> locationMap = Maps.newLinkedHashMap();
 
     public void init() {
 
@@ -47,7 +47,8 @@ public final class LocationManager {
 
         try {
             configuration.save(file);
-        }catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
 
     }
 
