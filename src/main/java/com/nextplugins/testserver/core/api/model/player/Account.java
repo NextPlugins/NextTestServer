@@ -7,10 +7,16 @@ import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import lombok.Builder;
 import lombok.Data;
+import lombok.val;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Yuhtin
@@ -23,26 +29,37 @@ public class Account {
 
     @Inject private static GroupStorage groupStorage;
 
-    private Player player;
-    private PermissionAttachment attachment;
-    private Group group;
+    @Nullable private Player player;
+    @Nonnull private OfflinePlayer offlinePlayer;
 
+    @Nullable private PermissionAttachment attachment;
+
+    private String name;
+    private UUID uniqueId;
+
+    private Group group;
     private List<String> permissions;
 
-    public static AccountBuilder of(Player player) {
+    public static AccountBuilder createDefault(Player player) {
 
-        PermissionAttachment attachment = player.addAttachment(NextTestServer.getInstance());
+        val offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
+        val attachment = player.addAttachment(NextTestServer.getInstance());
 
-        return Account.create()
+        return Account.createDefault(offlinePlayer)
                 .player(player)
-                .attachment(attachment)
-                .permissions(Lists.newArrayList())
-                .group(groupStorage.getGroupByName("Membro"));
+                .attachment(attachment);
 
     }
 
-    public static Account createDefault(Player player) {
-        return Account.of(player).wrap();
+    public static AccountBuilder createDefault(OfflinePlayer player) {
+
+        return Account.create()
+                .offlinePlayer(player)
+                .name(player.getName())
+                .uniqueId(player.getUniqueId())
+                .permissions(Lists.newArrayList())
+                .group(groupStorage.getGroupByName("Membro"));
+
     }
 
 }

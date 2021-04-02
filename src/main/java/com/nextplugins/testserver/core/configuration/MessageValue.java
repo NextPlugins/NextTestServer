@@ -1,4 +1,4 @@
-package com.nextplugins.testserver.core.configuration.values;
+package com.nextplugins.testserver.core.configuration;
 
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
@@ -23,6 +23,8 @@ public final class MessageValue implements ConfigurationInjectable {
 
     @Getter private static final MessageValue instance = new MessageValue();
 
+    @ConfigField("chatFormat") private String chatFormat;
+
     @ConfigField("motd.normal") private String motd;
     @ConfigField("motd.whitelist") private String motdWhitelist;
 
@@ -35,5 +37,4 @@ public final class MessageValue implements ConfigurationInjectable {
     public static <T> T get(Function<MessageValue, T> function) {
         return function.apply(instance);
     }
-
 }

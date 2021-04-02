@@ -1,7 +1,8 @@
-package com.nextplugins.testserver.core.configuration.values;
+package com.nextplugins.testserver.core.configuration;
 
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
+import com.henryfabio.minecraft.configinjector.common.annotations.TranslateColors;
 import com.henryfabio.minecraft.configinjector.common.injector.ConfigurationInjectable;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,18 +18,18 @@ import java.util.function.Function;
  */
 
 @Getter
+@TranslateColors
 @Accessors(fluent = true)
-@ConfigFile("groups.yml")
+@ConfigFile("locations.yml")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class PermissionsValue implements ConfigurationInjectable {
+public final class LocationValue implements ConfigurationInjectable {
 
-    @Getter private static final PermissionsValue instance = new PermissionsValue();
+    @Getter private static final LocationValue instance = new LocationValue();
 
-    @ConfigField("groups") private ConfigurationSection section;
+    @ConfigField("locations") private ConfigurationSection section;
 
-    public static <T> T get(Function<PermissionsValue, T> function) {
+    public static <T> T get(Function<LocationValue, T> function) {
         return function.apply(instance);
     }
 
 }
-

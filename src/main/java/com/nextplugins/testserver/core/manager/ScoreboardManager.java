@@ -2,7 +2,7 @@ package com.nextplugins.testserver.core.manager;
 
 
 import com.nextplugins.testserver.core.NextTestServer;
-import com.nextplugins.testserver.core.configuration.values.ScoreboardValue;
+import com.nextplugins.testserver.core.configuration.ScoreboardValue;
 import fr.minuskube.netherboard.Netherboard;
 import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import lombok.val;

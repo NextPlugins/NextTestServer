@@ -1,15 +1,16 @@
-package com.nextplugins.testserver.core.configuration.values;
+package com.nextplugins.testserver.core.configuration;
 
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
+import com.henryfabio.minecraft.configinjector.common.annotations.ConfigSection;
 import com.henryfabio.minecraft.configinjector.common.annotations.TranslateColors;
 import com.henryfabio.minecraft.configinjector.common.injector.ConfigurationInjectable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.bukkit.configuration.ConfigurationSection;
 
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -20,15 +21,17 @@ import java.util.function.Function;
 @Getter
 @TranslateColors
 @Accessors(fluent = true)
-@ConfigFile("locations.yml")
+@ConfigSection("scoreboard")
+@ConfigFile("scoreboard.yml")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class LocationValue implements ConfigurationInjectable {
+public final class ScoreboardValue implements ConfigurationInjectable {
 
-    @Getter private static final LocationValue instance = new LocationValue();
+    @Getter private static final ScoreboardValue instance = new ScoreboardValue();
 
-    @ConfigField("locations") private ConfigurationSection section;
+    @ConfigField("title") private String title;
+    @ConfigField("lines") private List<String> lines;
 
-    public static <T> T get(Function<LocationValue, T> function) {
+    public static <T> T get(Function<ScoreboardValue, T> function) {
         return function.apply(instance);
     }
 

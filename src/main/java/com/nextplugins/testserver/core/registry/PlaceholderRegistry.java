@@ -1,4 +1,4 @@
-package com.nextplugins.testserver.core.placeholder.registry;
+package com.nextplugins.testserver.core.registry;
 
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.placeholder.PlaceholderHook;

@@ -1,7 +1,7 @@
 package com.nextplugins.testserver.core.commands;
 
 import com.google.inject.Inject;
-import com.nextplugins.testserver.core.configuration.values.MessageValue;
+import com.nextplugins.testserver.core.configuration.MessageValue;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.utils.ColorUtils;
 import com.nextplugins.testserver.core.utils.MessageUtils;

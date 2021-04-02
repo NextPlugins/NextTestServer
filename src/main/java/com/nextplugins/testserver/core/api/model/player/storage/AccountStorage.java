@@ -2,8 +2,7 @@ package com.nextplugins.testserver.core.api.model.player.storage;
 
 import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.dao.AccountDAO;
-import com.nextplugins.testserver.core.api.model.player.utils.AccountUtils;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,19 +27,23 @@ public final class AccountStorage {
         this.accountDAO.createTable();
     }
 
-    public Account loadPlayer(Player player) {
+    public Account from(OfflinePlayer player) {
 
         Account account = players.getOrDefault(player.getUniqueId(), null);
         if (account == null) {
 
-            account = this.accountDAO.selectOne(player.getUniqueId());
-            if (account == null) account = Account.createDefault(player);
+            account = accountDAO.selectOne(player.getUniqueId());
+            if (account == null && player.isOnline()) {
 
-            this.players.put(account.getPlayer().getUniqueId(), account);
+                account = Account.createDefault(player.getPlayer()).wrap();
+                accountDAO.update(account);
+
+                this.players.put(player.getUniqueId(), account);
+
+            }
 
         }
 
-        AccountUtils.updateAttachment(account);
         return account;
 
     }
@@ -50,7 +53,7 @@ public final class AccountStorage {
     }
 
     public void purgeData(Account account) {
-        this.players.remove(account.getPlayer().getUniqueId());
+        this.players.remove(account.getUniqueId());
         this.accountDAO.update(account);
     }
 

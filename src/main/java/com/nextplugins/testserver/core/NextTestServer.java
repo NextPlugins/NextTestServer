@@ -8,14 +8,11 @@ import com.henryfabio.sqlprovider.connector.type.impl.MySQLDatabaseType;
 import com.henryfabio.sqlprovider.connector.type.impl.SQLiteDatabaseType;
 import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
-import com.nextplugins.testserver.core.commands.registry.CommandRegistry;
-import com.nextplugins.testserver.core.configuration.registry.ConfigurationRegistry;
+import com.nextplugins.testserver.core.registry.*;
 import com.nextplugins.testserver.core.guice.PluginModule;
-import com.nextplugins.testserver.core.listeners.registry.ListenerRegistry;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.ScoreboardManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
-import com.nextplugins.testserver.core.placeholder.registry.PlaceholderRegistry;
 import lombok.Getter;
 import me.bristermitten.pdm.PluginDependencyManager;
 import org.bukkit.configuration.ConfigurationSection;
@@ -28,6 +25,8 @@ public final class NextTestServer extends JavaPlugin {
 
     private Injector injector;
     private SQLConnector sqlConnector;
+
+    @Inject private InventoryRegistry inventoryRegistry;
 
     @Inject private GroupStorage groupStorage;
     @Inject private AccountStorage accountStorage;
@@ -58,6 +57,8 @@ public final class NextTestServer extends JavaPlugin {
                 PlaceholderRegistry.enable(this);
                 ListenerRegistry.enable(this);
                 CommandRegistry.enable(this);
+
+                this.inventoryRegistry.init();
 
                 this.groupStorage.init();
                 this.accountStorage.init();

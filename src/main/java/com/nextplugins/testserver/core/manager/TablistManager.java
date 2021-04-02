@@ -1,6 +1,6 @@
 package com.nextplugins.testserver.core.manager;
 
-import com.nextplugins.testserver.core.configuration.values.MessageValue;
+import com.nextplugins.testserver.core.configuration.MessageValue;
 import com.nextplugins.testserver.core.utils.MessageUtils;
 import com.nextplugins.testserver.core.utils.PacketUtils;
 import lombok.val;

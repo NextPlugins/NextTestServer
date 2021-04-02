@@ -1,4 +1,4 @@
-package com.nextplugins.testserver.core.listeners.registry;
+package com.nextplugins.testserver.core.registry;
 
 import com.google.common.reflect.ClassPath;
 import com.nextplugins.testserver.core.NextTestServer;

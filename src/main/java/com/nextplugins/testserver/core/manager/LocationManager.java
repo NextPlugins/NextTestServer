@@ -1,7 +1,7 @@
 package com.nextplugins.testserver.core.manager;
 
 import com.google.common.collect.Maps;
-import com.nextplugins.testserver.core.configuration.values.LocationValue;
+import com.nextplugins.testserver.core.configuration.LocationValue;
 import com.nextplugins.testserver.core.utils.LocationUtils;
 import lombok.Getter;
 import lombok.val;

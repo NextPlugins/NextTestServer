@@ -1,4 +1,4 @@
-package com.nextplugins.testserver.core.configuration.values;
+package com.nextplugins.testserver.core.configuration;
 
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigField;
 import com.henryfabio.minecraft.configinjector.common.annotations.ConfigFile;
@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.function.Function;
 
@@ -17,17 +18,17 @@ import java.util.function.Function;
 
 @Getter
 @Accessors(fluent = true)
-@ConfigFile("config.yml")
+@ConfigFile("groups.yml")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ConfigValue implements ConfigurationInjectable {
+public final class PermissionsValue implements ConfigurationInjectable {
 
-    @Getter private static final ConfigValue instance = new ConfigValue();
+    @Getter private static final PermissionsValue instance = new PermissionsValue();
 
-    @ConfigField("github.username") private String githubUsername;
-    @ConfigField("github.accessToken") private String githubAccessToken;
+    @ConfigField("groups") private ConfigurationSection section;
 
-    public static <T> T get(Function<ConfigValue, T> function) {
+    public static <T> T get(Function<PermissionsValue, T> function) {
         return function.apply(instance);
     }
 
 }
+

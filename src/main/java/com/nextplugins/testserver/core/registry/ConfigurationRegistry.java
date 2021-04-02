@@ -1,7 +1,7 @@
-package com.nextplugins.testserver.core.configuration.registry;
+package com.nextplugins.testserver.core.registry;
 
 import com.henryfabio.minecraft.configinjector.bukkit.injector.BukkitConfigurationInjector;
-import com.nextplugins.testserver.core.configuration.values.*;
+import com.nextplugins.testserver.core.configuration.*;
 import org.bukkit.plugin.Plugin;
 
 public final class ConfigurationRegistry {

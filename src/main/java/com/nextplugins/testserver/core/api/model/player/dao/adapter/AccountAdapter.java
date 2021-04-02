@@ -8,8 +8,10 @@ import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import com.nextplugins.testserver.core.api.model.player.Account;
 import lombok.val;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public final class AccountAdapter implements SQLResultAdapter<Account> {
@@ -19,21 +21,21 @@ public final class AccountAdapter implements SQLResultAdapter<Account> {
     @Override
     public Account adaptResult(SimpleResultSet resultSet) {
 
-        Player player = Bukkit.getPlayer(UUID.fromString(resultSet.get("owner")));
+        OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(resultSet.get("owner")));
 
         Group group = groupStorage.getGroupByName(resultSet.get("userGroup"));
         if (group == null) group = groupStorage.getGroupByName("Membro");
 
-        val account = Account.of(player)
-                .group(group)
-                .wrap();
+        val accountBuilder = player.isOnline()
+                ? Account.createDefault(player.getPlayer())
+                : Account.createDefault(player)
+                .group(group);
 
         String permissions = resultSet.get("permissions");
-        if (permissions.equalsIgnoreCase("")) return account;
+        if (permissions.equalsIgnoreCase("")) return accountBuilder.wrap();
 
-        for (String permission : permissions.split(",")) account.getPermissions().add(permission);
-
-        return account;
+        return accountBuilder.permissions(Arrays.asList(permissions.split(",")))
+                .wrap();
 
     }
 

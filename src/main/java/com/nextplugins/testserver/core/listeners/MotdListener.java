@@ -1,6 +1,6 @@
 package com.nextplugins.testserver.core.listeners;
 
-import com.nextplugins.testserver.core.configuration.values.MessageValue;
+import com.nextplugins.testserver.core.configuration.MessageValue;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

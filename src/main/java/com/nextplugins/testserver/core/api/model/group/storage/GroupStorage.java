@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.api.model.group.parser.GroupParser;
-import com.nextplugins.testserver.core.configuration.values.PermissionsValue;
+import com.nextplugins.testserver.core.configuration.PermissionsValue;
 import lombok.val;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;

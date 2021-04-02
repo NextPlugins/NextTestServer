@@ -38,7 +38,7 @@ public final class AccountDAO {
                 String.format("REPLACE INTO %s VALUES(?,?,?)", TABLE),
                 statement -> {
 
-                    statement.set(1, account.getPlayer().getUniqueId().toString());
+                    statement.set(1, account.getUniqueId().toString());
                     statement.set(2, account.getGroup().getName());
                     statement.set(3, String.join(",", account.getPermissions()));
 
