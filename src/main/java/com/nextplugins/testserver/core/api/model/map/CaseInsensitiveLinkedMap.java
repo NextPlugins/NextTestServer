@@ -1,0 +1,22 @@
+package com.nextplugins.testserver.core.api.model.map;
+
+import java.util.LinkedHashMap;
+
+/**
+ * @author Yuhtin
+ * Github: https://github.com/Yuhtin
+ */
+public class CaseInsensitiveLinkedMap<V> extends LinkedHashMap<String, V> {
+
+    @Override
+    public V get(Object key) {
+        String keyFounded = this.keySet()
+                .stream()
+                .filter(keyMap -> keyMap.equalsIgnoreCase((String) key))
+                .findAny()
+                .orElse(null);
+
+        return keyFounded == null ? null : super.get(keyFounded);
+    }
+
+}

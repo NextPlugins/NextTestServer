@@ -1,6 +1,6 @@
 package com.nextplugins.testserver.core.manager;
 
-import com.google.common.collect.Maps;
+import com.nextplugins.testserver.core.api.model.map.CaseInsensitiveLinkedMap;
 import com.nextplugins.testserver.core.configuration.LocationValue;
 import com.nextplugins.testserver.core.utils.LocationUtils;
 import lombok.Getter;
@@ -11,13 +11,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import javax.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 @Getter
 @Singleton
 public final class LocationManager {
 
-    private final Map<String, Location> locationMap = Maps.newLinkedHashMap();
+    private final CaseInsensitiveLinkedMap<Location> locationMap = new CaseInsensitiveLinkedMap<>();
 
     public void init() {
 
@@ -53,16 +52,7 @@ public final class LocationManager {
     }
 
     public Location getLocation(String name) {
-
-        val locationName = locationMap.keySet()
-                .stream()
-                .filter(location -> location.equalsIgnoreCase(name))
-                .findAny()
-                .orElse(null);
-
-        if (locationName == null) return null;
-
-        return locationMap.get(locationName);
+        return locationMap.get(name);
     }
 
 }

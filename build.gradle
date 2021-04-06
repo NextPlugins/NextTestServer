@@ -69,8 +69,7 @@ shadowJar {
     relocate 'com.henryfabio.minecraft.inventoryapi', 'com.nextplugins.testserver.core.libs.inventoryapi'
     relocate 'com.henryfabio.sqlprovider', 'com.nextplugins.testserver.core.libs.sqlprovider'
     relocate 'com.henryfabio.minecraft.configinjector', 'com.nextplugins.testserver.core.libs.configinjector'
-    relocate 'com.henryfabio.minecraft.githubupdater', 'com.nextplugins.testserver.core.libs.githubupdater'
-    //relocate 'fr.minuskube.netherboard', 'com.nextplugins.testserver.core.libs.netherboard'
+    relocate 'fr.minuskube.netherboard', 'com.nextplugins.testserver.core.libs.netherboard'
 }
 
 compileJava {
