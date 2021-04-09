@@ -4,10 +4,13 @@ import com.google.inject.Inject;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
+import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
+import com.nextplugins.testserver.core.api.model.player.utils.AccountUtils;
 import com.nextplugins.testserver.core.utils.ColorUtils;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.command.Context;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -19,6 +22,39 @@ public class GroupCommand {
     private static final String GROUP_INFO = " &a%sº&f: &7%s &8- %s &8- &c%s permissões";
 
     @Inject private GroupStorage groupStorage;
+    @Inject private AccountStorage accountStorage;
+
+    @Command(
+            name = "setgrupo",
+            permission = "nextcore.setgroup",
+            async = true
+    )
+    public void onSetGroupCommand(Context<CommandSender> context,
+                                  OfflinePlayer player,
+                                  String groupName) {
+
+        val sender = context.getSender();
+
+        val group = groupStorage.getGroupByName(groupName);
+        if (group == null) {
+
+            sender.sendMessage(ColorUtils.colored(
+                    "&cGrupo inexistente."
+            ));
+            return;
+
+
+        }
+
+        val account = accountStorage.from(player);
+        AccountUtils.changeGroup(account, group);
+
+        accountStorage.save(account);
+        sender.sendMessage(ColorUtils.colored(
+                "&aGrupo do jogador &f" + player.getName() + " &aatualizado com sucesso."
+        ));
+
+    }
 
     @Command(
             name = "grupo",
@@ -65,7 +101,7 @@ public class GroupCommand {
 
             context.sendMessage(ColorUtils.colored(String.format(
                     GROUP_INFO,
-                    i, group.getName(), group.getPrefix(), group.getPermissions().size()
+                    i + 1, group.getName(), group.getPrefix(), group.getPermissions().size()
             )));
 
         }
@@ -79,7 +115,8 @@ public class GroupCommand {
             async = true
     )
     public void onGroupCreate(Context<CommandSender> context,
-                              String groupName) {
+                              String groupName,
+                              String coloredName) {
 
         val sender = context.getSender();
         if (groupStorage.getGroupByName(groupName) != null) {
@@ -91,7 +128,7 @@ public class GroupCommand {
 
         }
 
-        val group = Group.createDefault(groupName);
+        val group = Group.createDefault(groupName, coloredName);
         this.groupStorage.register(group);
 
         sender.sendMessage(ColorUtils.colored(

@@ -44,7 +44,10 @@ public class WarpCommand {
         }
 
         sender.teleport(location);
-        MessageUtils.sendSoundAndTitle(MessageValue.get(MessageValue::teleported), Sound.NOTE_PLING, 150);
+        MessageUtils.sendSoundAndTitle(
+                MessageValue.get(MessageValue::teleported).replace("%warp%", local.toLowerCase()),
+                Sound.NOTE_PLING, 150
+        );
 
     }
 

@@ -29,7 +29,7 @@ public class AccountConnectionListener implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(
                 NextTestServer.getInstance(),
                 () -> {
-                    accountStorage.loadPlayer(event.getPlayer());
+                    accountStorage.from(event.getPlayer());
                     tablistManager.sendTablist(event.getPlayer());
                 }
         );
@@ -44,7 +44,7 @@ public class AccountConnectionListener implements Listener {
     @EventHandler
     public void unloadAttachment(PlayerQuitEvent event) {
 
-        Account account = accountStorage.loadPlayer(event.getPlayer());
+        Account account = accountStorage.from(event.getPlayer());
         event.getPlayer().removeAttachment(account.getAttachment());
 
     }

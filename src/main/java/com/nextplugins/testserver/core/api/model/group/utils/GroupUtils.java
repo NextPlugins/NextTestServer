@@ -7,6 +7,8 @@ import com.nextplugins.testserver.core.api.model.player.utils.AccountUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.stream.Collectors;
+
 /**
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
@@ -22,7 +24,7 @@ public class GroupUtils {
         if (group.getPermissions().contains(permission)) return false;
 
         group.getPermissions().add(permission);
-        updateAllAttachments();
+        updateAttachments(group);
 
         return true;
 
@@ -33,9 +35,18 @@ public class GroupUtils {
         if (!group.getPermissions().contains(permission)) return false;
 
         group.getPermissions().remove(permission);
-        updateAllAttachments();
+        updateAttachments(group);
 
         return true;
+
+    }
+
+    public static void updateAttachments(Group group) {
+
+        accountStorage.getOnlinePlayers()
+                .stream()
+                .filter(account -> account.getGroup().getName().equals(group.getName()))
+                .forEach(AccountUtils::updateAttachment);
 
     }
 

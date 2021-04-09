@@ -23,6 +23,10 @@ public class CommandRegistry {
         val groupCommand = new GroupCommand();
         val accountComamnd = new AccountCommand();
 
+        injector.injectMembers(warpCommand);
+        injector.injectMembers(groupCommand);
+        injector.injectMembers(accountComamnd);
+
         bukkitFrame.registerCommands(
                 //usualCommand,
                 warpCommand,
@@ -30,10 +34,7 @@ public class CommandRegistry {
                 accountComamnd
         );
 
-        //injector.injectMembers(usualCommand);
-        injector.injectMembers(warpCommand);
-        injector.injectMembers(groupCommand);
-        injector.injectMembers(accountComamnd);
+        //injector.injectMembers(usualCommand)
 
     }
 

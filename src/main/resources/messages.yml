@@ -1,12 +1,12 @@
 messages:
   chatFormat: '@group @player&f: &7@message'
   motd:
-    normal: '&3&lNEXT PLUGINS &7[1.8]\n&fTeste os sistemas da &bNext &faqui'
-    whitelist: '&3&lNEXT PLUGINS &7[1.8]\n&fEstamos em &cmanutenção&f, voltamos já'
+    normal: "&3&lNEXT PLUGINS &7[1.8x]\n&fElevando seu projeto a outro patamar"
+    whitelist: "&3&lNEXT PLUGINS &7[1.8x]\n&fEstamos em &cmanutenção&f, voltamos já"
   tablist:
     header:
       - '&3&lNEXT PLUGINS'
-      - '&e    teste.nextplugins.tk'
+      - '&e    test.nextplugins.tk'
     footer:
       - '&7'
       - '&bDiscord: &fnextplugins.tk/discord'
@@ -15,5 +15,5 @@ messages:
       - '&7'
       - '&3Evolua o seu servidor usando os plugins da &bNext&f: &8nextplugins.tk/discord'
   teleport:
-    teleporting: '&6&LWARP<nl>&fAguarde %time%s para viajar até o local'
-    teleported: '&6&LWARP<nl>&fVocê chegou a warp %warp%'
+    teleporting: '&6&LWARP<nl>&fAguarde &e%time%s &fpara viajar até o local'
+    teleported: '&6&LWARP<nl>&fVocê viajou até a warp &e%warp%'

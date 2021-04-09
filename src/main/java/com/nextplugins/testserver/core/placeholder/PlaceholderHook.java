@@ -37,7 +37,7 @@ public final class PlaceholderHook extends PlaceholderExpansion {
 
         if (params.equalsIgnoreCase("group")) {
 
-            val account = accountStorage.loadPlayer(player);
+            val account = accountStorage.from(player);
             return account.getGroup().getPrefix();
 
         }

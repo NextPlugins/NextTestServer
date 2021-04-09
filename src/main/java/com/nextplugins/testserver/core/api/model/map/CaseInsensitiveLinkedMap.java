@@ -8,6 +8,10 @@ import java.util.LinkedHashMap;
  */
 public class CaseInsensitiveLinkedMap<V> extends LinkedHashMap<String, V> {
 
+    public static <V> CaseInsensitiveLinkedMap<V> newMap() {
+        return new CaseInsensitiveLinkedMap<>();
+    }
+
     @Override
     public V get(Object key) {
         String keyFounded = this.keySet()

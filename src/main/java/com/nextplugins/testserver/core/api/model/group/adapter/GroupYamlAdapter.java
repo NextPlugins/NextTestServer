@@ -1,5 +1,6 @@
-package com.nextplugins.testserver.core.api.model.group.parser;
+package com.nextplugins.testserver.core.api.model.group.adapter;
 
+import com.github.eikefab.libs.yamladapter.YamlAdapter;
 import com.google.common.collect.Lists;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.utils.ColorUtils;
@@ -13,24 +14,10 @@ import java.util.List;
  * Github: https://github.com/Yuhtin
  */
 
-@Data(staticConstructor = "of")
-public class GroupParser {
+public final class GroupYamlAdapter implements YamlAdapter<Group> {
 
-    private final ConfigurationSection section;
-
-    public List<Group> parseSectionList() {
-
-        List<Group> groups = Lists.newArrayList();
-
-        for (String key : section.getKeys(false)) {
-            groups.add(parseSection(section.getConfigurationSection(key)));
-        }
-
-        return groups;
-
-    }
-
-    public Group parseSection(ConfigurationSection section) {
+    @Override
+    public Group adapt(String key, ConfigurationSection section) {
 
         ConfigurationSection groupConfig = section.getConfigurationSection("config");
 
@@ -44,4 +31,8 @@ public class GroupParser {
 
     }
 
+    @Override
+    public ConfigurationSection adapt(Group value) {
+        return null;
+    }
 }

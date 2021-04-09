@@ -1,20 +1,18 @@
 package com.nextplugins.testserver.core.api.model.group.storage;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
-import com.nextplugins.testserver.core.api.model.group.parser.GroupParser;
+import com.nextplugins.testserver.core.api.model.group.adapter.GroupYamlAdapter;
+import com.nextplugins.testserver.core.api.model.map.CaseInsensitiveLinkedMap;
 import com.nextplugins.testserver.core.configuration.PermissionsValue;
 import lombok.val;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import javax.inject.Singleton;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Yuhtin
@@ -24,12 +22,12 @@ import java.util.Map;
 @Singleton
 public class GroupStorage {
 
-    private final Map<String, Group> groups = Maps.newHashMap();
+    private final CaseInsensitiveLinkedMap<Group> groups = CaseInsensitiveLinkedMap.newMap();
 
     public void init() {
 
         val section = PermissionsValue.get(PermissionsValue::section);
-        GroupParser.of(section).parseSectionList().forEach(this::register);
+        GroupYamlAdapter.of(section).parseSectionList().forEach(this::register);
 
     }
 
@@ -42,15 +40,7 @@ public class GroupStorage {
     }
 
     public Group getGroupByName(String name) {
-
-        val groupEntry = groups.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().equalsIgnoreCase(name))
-                .findAny()
-                .orElse(null);
-
-        return groupEntry == null ? null : groupEntry.getValue();
-
+        return groups.get(name);
     }
 
     public List<String> getGroupNames() {
@@ -65,10 +55,21 @@ public class GroupStorage {
         val groups = this.groups.values();
         for (Group group : groups) {
 
-            ConfigurationSection section = configuration.getConfigurationSection("groups." + group.getName());
+            val path = "groups." + group.getName();
+            val configPath = "groups." + group.getName() + ".config";
 
+            val prefix = group.getPrefix();
+            val resumedPrefix = group.getResumedPrefix();
             val permissions = group.getPermissions();
-            section.set("permissions", permissions);
+            val priority = group.getPriority();
+            val sorter = group.getSorter();
+
+            configuration.set(configPath + ".prefix", prefix);
+            configuration.set(configPath + ".resumedPrefix", resumedPrefix);
+            configuration.set(configPath + ".priority", priority);
+            configuration.set(configPath + ".sorter", sorter);
+
+            configuration.set(path + ".permissions", permissions);
 
         }
 

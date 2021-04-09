@@ -17,21 +17,24 @@ public class Group {
 
     private final String name;
     private final String prefix;
+    private final String resumedPrefix;
 
     private final List<String> permissions;
 
     private final int priority;
     private final char sorter;
 
-    public static Group createDefault(String name) {
+    public static Group createDefault(String name, String coloredName) {
 
         return Group.builder()
                 .name(name)
-                .prefix("&c" + name)
+                .resumedPrefix("&c" + name)
+                .prefix(coloredName)
                 .priority(0)
                 .sorter('c')
                 .permissions(Lists.newArrayList())
                 .build();
+
     }
 
 }

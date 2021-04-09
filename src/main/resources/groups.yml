@@ -14,7 +14,7 @@ groups:
       - 'nextmarket.use'
       - 'nextonlinetime.use'
     config:
-      resumedPrefix: '&aMembro'
       prefix: '&a[Membro]'
+      resumedPrefix: '&aMembro'
       priority: 0
       sorter: 'z'

@@ -26,7 +26,7 @@ public class AccountCommand {
     @Command(
             name = "conta",
             aliases = {"account", "player", "playerinfo", "jogador"},
-            usage = "ver [jogador]",
+            usage = "conta [jogador]",
             permission = "nextcore.editplayer",
             target = CommandTarget.PLAYER,
             async = true

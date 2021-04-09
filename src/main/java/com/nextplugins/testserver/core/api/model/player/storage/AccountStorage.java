@@ -33,14 +33,14 @@ public final class AccountStorage {
         if (account == null) {
 
             account = accountDAO.selectOne(player.getUniqueId());
-            if (account == null && player.isOnline()) {
+            if (account == null) {
 
                 account = Account.createDefault(player.getPlayer()).wrap();
-                accountDAO.update(account);
-
-                this.players.put(player.getUniqueId(), account);
+                save(account);
 
             }
+
+            if (player.isOnline()) this.players.put(player.getUniqueId(), account);
 
         }
 
@@ -53,7 +53,11 @@ public final class AccountStorage {
     }
 
     public void purgeData(Account account) {
-        this.players.remove(account.getUniqueId());
+        players.remove(account.getUniqueId());
+        save(account);
+    }
+
+    public void save(Account account) {
         this.accountDAO.update(account);
     }
 
