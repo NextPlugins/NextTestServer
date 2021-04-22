@@ -1,7 +1,6 @@
 package com.nextplugins.testserver.core.api.model.player.command;
 
 import com.google.inject.Inject;
-import com.nextplugins.testserver.core.api.model.player.Account;
 import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
 import com.nextplugins.testserver.core.registry.InventoryRegistry;
 import com.nextplugins.testserver.core.utils.ColorUtils;

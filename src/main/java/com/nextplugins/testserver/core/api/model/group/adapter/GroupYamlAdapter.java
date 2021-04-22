@@ -1,13 +1,10 @@
 package com.nextplugins.testserver.core.api.model.group.adapter;
 
 import com.github.eikefab.libs.yamladapter.YamlAdapter;
-import com.google.common.collect.Lists;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.utils.ColorUtils;
-import lombok.Data;
+import lombok.val;
 import org.bukkit.configuration.ConfigurationSection;
-
-import java.util.List;
 
 /**
  * @author Yuhtin
@@ -32,7 +29,25 @@ public final class GroupYamlAdapter implements YamlAdapter<Group> {
     }
 
     @Override
-    public ConfigurationSection adapt(Group value) {
-        return null;
+    public void adapt(Group group, ConfigurationSection section) {
+
+        val path = group.getName();
+        val configPath = group.getName() + ".config";
+
+        val prefix = group.getPrefix();
+        val resumedPrefix = group.getResumedPrefix();
+        val permissions = group.getPermissions();
+        val priority = group.getPriority();
+        val sorter = group.getSorter();
+
+        section.set(configPath + ".prefix", prefix);
+        section.set(configPath + ".resumedPrefix", resumedPrefix);
+        section.set(configPath + ".priority", priority);
+        section.set(configPath + ".sorter", sorter);
+
+        section.set(path + ".permissions", permissions);
+
+
     }
+
 }

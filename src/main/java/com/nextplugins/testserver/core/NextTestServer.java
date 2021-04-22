@@ -53,10 +53,10 @@ public final class NextTestServer extends JavaPlugin {
                 this.injector = PluginModule.of(this).createInjector();
                 this.injector.injectMembers(this);
 
+                CommandRegistry.enable(this);
                 ConfigurationRegistry.enable(this);
                 PlaceholderRegistry.enable(this);
                 ListenerRegistry.enable(this);
-                CommandRegistry.enable(this);
 
                 this.inventoryRegistry.init();
 

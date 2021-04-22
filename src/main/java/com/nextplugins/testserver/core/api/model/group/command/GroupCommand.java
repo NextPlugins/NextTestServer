@@ -138,7 +138,7 @@ public class GroupCommand {
     }
 
     @Command(
-            name = "group.delete",
+            name = "grupo.delete",
             aliases = {"deletar"},
             permission = "nextcore.group.delete",
             async = true

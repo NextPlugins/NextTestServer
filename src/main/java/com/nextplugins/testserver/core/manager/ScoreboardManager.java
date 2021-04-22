@@ -26,7 +26,7 @@ public class ScoreboardManager {
 
     public void init() {
 
-        Bukkit.getScheduler().runTaskTimerAsynchronously(
+        Bukkit.getScheduler().runTaskTimer(
                 NextTestServer.getInstance(),
                 this::updateAllScoreboards,
                 20L * 15L, 20 * 15L
