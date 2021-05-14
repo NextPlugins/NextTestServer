@@ -2,7 +2,7 @@ package com.nextplugins.testserver.core.registry;
 
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.command.GroupCommand;
-import com.nextplugins.testserver.core.api.model.player.command.AccountCommand;
+import com.nextplugins.testserver.core.api.model.player.command.UserCommand;
 import com.nextplugins.testserver.core.commands.WarpCommand;
 import lombok.val;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
@@ -21,7 +21,7 @@ public class CommandRegistry {
         //val usualCommand = new UsualCommand();
         val warpCommand = new WarpCommand();
         val groupCommand = new GroupCommand();
-        val accountComamnd = new AccountCommand();
+        val accountComamnd = new UserCommand();
 
         bukkitFrame.registerCommands(
                 //usualCommand,

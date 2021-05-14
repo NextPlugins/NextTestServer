@@ -2,8 +2,8 @@ package com.nextplugins.testserver.core.listeners;
 
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
-import com.nextplugins.testserver.core.api.model.player.Account;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
+import com.nextplugins.testserver.core.api.model.player.User;
+import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
 import org.bukkit.Bukkit;
@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class AccountConnectionListener implements Listener {
 
-    @Inject private AccountStorage accountStorage;
+    @Inject private UserStorage userStorage;
     @Inject private LocationManager locationManager;
     @Inject private TablistManager tablistManager;
 
@@ -41,8 +41,8 @@ public class AccountConnectionListener implements Listener {
     @EventHandler
     public void unloadAttachment(PlayerQuitEvent event) {
 
-        Account account = accountStorage.findAccount(event.getPlayer());
-        event.getPlayer().removeAttachment(account.getAttachment());
+        User user = userStorage.findAccount(event.getPlayer());
+        event.getPlayer().removeAttachment(user.getAttachment());
 
     }
 

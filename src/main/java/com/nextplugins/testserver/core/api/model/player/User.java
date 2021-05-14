@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @Data
 @Builder(builderMethodName = "create", buildMethodName = "wrap")
-public class Account {
+public class User {
 
     @Inject
     private static GroupStorage groupStorage;
@@ -43,9 +43,9 @@ public class Account {
     private Group group;
     private List<String> permissions;
 
-    public static AccountBuilder createDefault(OfflinePlayer player) {
+    public static UserBuilder createDefault(OfflinePlayer player) {
 
-        val accountBuilder = Account.create()
+        val accountBuilder = User.create()
                 .offlinePlayer(player)
                 .name(player.getName())
                 .uniqueId(player.getUniqueId())

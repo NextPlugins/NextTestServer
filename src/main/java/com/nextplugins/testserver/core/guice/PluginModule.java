@@ -7,8 +7,8 @@ import com.google.inject.name.Names;
 import com.henryfabio.sqlprovider.executor.SQLExecutor;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
-import com.nextplugins.testserver.core.api.model.player.Account;
-import com.nextplugins.testserver.core.api.model.player.repository.adapter.AccountAdapter;
+import com.nextplugins.testserver.core.api.model.player.User;
+import com.nextplugins.testserver.core.api.model.player.repository.adapter.UserAdapter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -33,7 +33,7 @@ public class PluginModule extends AbstractModule {
         bind(SQLExecutor.class)
                 .toInstance(new SQLExecutor(nextTestServer.getSqlConnector()));
 
-        requestStaticInjection(Account.class, AccountAdapter.class, GroupUtils.class);
+        requestStaticInjection(User.class, UserAdapter.class, GroupUtils.class);
 
     }
 

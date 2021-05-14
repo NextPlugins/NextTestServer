@@ -1,7 +1,7 @@
 package com.nextplugins.testserver.core.api.model.player.command;
 
 import com.google.inject.Inject;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
+import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import com.nextplugins.testserver.core.registry.InventoryRegistry;
 import com.nextplugins.testserver.core.utils.ColorUtils;
 import lombok.val;
@@ -17,9 +17,9 @@ import org.bukkit.entity.Player;
  * @author Yuhtin
  * Github: https://github.com/Yuhtin
  */
-public class AccountCommand {
+public class UserCommand {
 
-    @Inject private AccountStorage accountStorage;
+    @Inject private UserStorage userStorage;
     @Inject private InventoryRegistry inventoryRegistry;
 
     @Command(
@@ -43,7 +43,7 @@ public class AccountCommand {
 
         }
 
-        val account = accountStorage.findAccount(player);
+        val account = userStorage.findAccount(player);
         if (account == null) {
 
             sender.sendMessage(ColorUtils.colored(
@@ -54,7 +54,7 @@ public class AccountCommand {
 
         }
 
-        val accountView = this.inventoryRegistry.getAccountView();
+        val accountView = this.inventoryRegistry.getUserView();
         accountView.openInventory(sender, viewer -> viewer.getPropertyMap().set("target", account));
 
     }

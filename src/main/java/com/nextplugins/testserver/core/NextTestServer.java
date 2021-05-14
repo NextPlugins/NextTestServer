@@ -8,7 +8,7 @@ import com.henryfabio.sqlprovider.connector.SQLConnector;
 import com.henryfabio.sqlprovider.connector.type.impl.MySQLDatabaseType;
 import com.henryfabio.sqlprovider.connector.type.impl.SQLiteDatabaseType;
 import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
+import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import com.nextplugins.testserver.core.registry.*;
 import com.nextplugins.testserver.core.guice.PluginModule;
 import com.nextplugins.testserver.core.manager.LocationManager;
@@ -33,7 +33,7 @@ public final class NextTestServer extends JavaPlugin {
     @Inject private InventoryRegistry inventoryRegistry;
 
     @Inject private GroupStorage groupStorage;
-    @Inject private AccountStorage accountStorage;
+    @Inject private UserStorage userStorage;
 
     @Inject private TablistManager tablistManager;
     @Inject private LocationManager locationManager;
@@ -86,7 +86,7 @@ public final class NextTestServer extends JavaPlugin {
         inventoryRegistry.init();
 
         groupStorage.init();
-        accountStorage.init();
+        userStorage.init();
 
         tablistManager.init();
         locationManager.init();
@@ -101,7 +101,7 @@ public final class NextTestServer extends JavaPlugin {
     public void onDisable() {
 
         groupStorage.unload();
-        accountStorage.unload();
+        userStorage.unload();
         locationManager.unload();
 
     }

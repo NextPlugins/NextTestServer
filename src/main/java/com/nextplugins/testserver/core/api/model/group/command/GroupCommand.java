@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
-import com.nextplugins.testserver.core.api.model.player.utils.AccountUtils;
+import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
+import com.nextplugins.testserver.core.api.model.player.utils.UserUtil;
 import com.nextplugins.testserver.core.utils.ColorUtils;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
@@ -22,7 +22,7 @@ public class GroupCommand {
     private static final String GROUP_INFO = " &a%sº&f: &7%s &8- %s &8- &c%s permissões";
 
     @Inject private GroupStorage groupStorage;
-    @Inject private AccountStorage accountStorage;
+    @Inject private UserStorage userStorage;
 
     @Command(
             name = "setgrupo",
@@ -46,7 +46,7 @@ public class GroupCommand {
 
         }
 
-        val account = accountStorage.findAccount(player);
+        val account = userStorage.findAccount(player);
         if (account == null) {
 
             sender.sendMessage(ColorUtils.colored(
@@ -57,7 +57,7 @@ public class GroupCommand {
 
         }
 
-        AccountUtils.changeGroup(account, group);
+        UserUtil.changeGroup(account, group);
 
         sender.sendMessage(ColorUtils.colored(
                 "&aGrupo do jogador &f" + player.getName() + " &aatualizado com sucesso."

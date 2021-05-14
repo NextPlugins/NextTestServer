@@ -1,6 +1,6 @@
 package com.nextplugins.testserver.core.registry;
 
-import com.nextplugins.testserver.core.api.model.player.view.AccountView;
+import com.nextplugins.testserver.core.api.model.player.view.UserView;
 import lombok.Getter;
 
 import javax.inject.Singleton;
@@ -14,10 +14,10 @@ import javax.inject.Singleton;
 @Singleton
 public class InventoryRegistry {
 
-    private AccountView accountView;
+    private UserView userView;
 
     public void init() {
-        this.accountView = new AccountView().init();
+        this.userView = new UserView().init();
     }
 
 }

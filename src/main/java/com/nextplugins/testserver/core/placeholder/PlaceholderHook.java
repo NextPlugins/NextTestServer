@@ -1,7 +1,7 @@
 package com.nextplugins.testserver.core.placeholder;
 
 import com.google.inject.Inject;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
+import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -14,7 +14,7 @@ public final class PlaceholderHook extends PlaceholderExpansion {
 
     private final Plugin plugin;
 
-    @Inject private AccountStorage accountStorage;
+    @Inject private UserStorage userStorage;
 
     @Override
     public @NotNull String getIdentifier() {
@@ -37,7 +37,7 @@ public final class PlaceholderHook extends PlaceholderExpansion {
 
         if (params.equalsIgnoreCase("group")) {
 
-            val account = accountStorage.findAccount(player);
+            val account = userStorage.findAccount(player);
             return account.getGroup().getPrefix();
 
         }

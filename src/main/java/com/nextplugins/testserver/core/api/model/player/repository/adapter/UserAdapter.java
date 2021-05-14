@@ -5,7 +5,7 @@ import com.henryfabio.sqlprovider.executor.adapter.SQLResultAdapter;
 import com.henryfabio.sqlprovider.executor.result.SimpleResultSet;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
-import com.nextplugins.testserver.core.api.model.player.Account;
+import com.nextplugins.testserver.core.api.model.player.User;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -13,12 +13,12 @@ import org.bukkit.OfflinePlayer;
 import java.util.Arrays;
 import java.util.UUID;
 
-public final class AccountAdapter implements SQLResultAdapter<Account> {
+public final class UserAdapter implements SQLResultAdapter<User> {
 
     @Inject private static GroupStorage groupStorage;
 
     @Override
-    public Account adaptResult(SimpleResultSet resultSet) {
+    public User adaptResult(SimpleResultSet resultSet) {
 
         OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(resultSet.get("owner")));
 
@@ -26,8 +26,8 @@ public final class AccountAdapter implements SQLResultAdapter<Account> {
         if (group == null) group = groupStorage.getGroupByName("Membro");
 
         val accountBuilder = player.isOnline()
-                ? Account.createDefault(player.getPlayer())
-                : Account.createDefault(player)
+                ? User.createDefault(player.getPlayer())
+                : User.createDefault(player)
                 .group(group);
 
         String permissions = resultSet.get("permissions");

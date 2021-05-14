@@ -2,10 +2,15 @@ package com.nextplugins.testserver.core.api.model.group.utils;
 
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.api.model.group.Group;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
-import com.nextplugins.testserver.core.api.model.player.utils.AccountUtils;
+import com.nextplugins.testserver.core.api.model.player.User;
+import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
+import com.nextplugins.testserver.core.api.model.player.utils.UserUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.val;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Yuhtin
@@ -15,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GroupUtils {
 
-    @Inject private static AccountStorage accountStorage;
+    @Inject private static UserStorage userStorage;
 
     public static boolean addPermission(Group group, String permission) {
 
@@ -41,15 +46,38 @@ public class GroupUtils {
 
     public static void updateAttachments(Group group) {
 
-        accountStorage.getOnlinePlayers()
-                .stream()
-                .filter(account -> account.getGroup().getName().equals(group.getName()))
-                .forEach(AccountUtils::updateAttachment);
+        try {
+            for (CompletableFuture<User> player : userStorage.getOnlinePlayers()) {
+
+                val user = player.get();
+                if (user.getGroup().getSorter() != group.getSorter()) continue;
+
+                UserUtil.updateAttachment(user);
+
+            }
+        } catch (InterruptedException | ExecutionException exception) {
+
+            Thread.currentThread().interrupt();
+            exception.printStackTrace();
+
+        }
 
     }
 
     public static void updateAllAttachments() {
-        accountStorage.getOnlinePlayers().forEach(AccountUtils::updateAttachment);
+        try {
+            for (CompletableFuture<User> player : userStorage.getOnlinePlayers()) {
+
+                val user = player.get();
+                UserUtil.updateAttachment(user);
+
+            }
+        } catch (InterruptedException | ExecutionException exception) {
+
+            Thread.currentThread().interrupt();
+            exception.printStackTrace();
+
+        }
     }
 
 }

@@ -4,8 +4,8 @@ import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.RemovalCause;
 import com.nextplugins.testserver.core.NextTestServer;
-import com.nextplugins.testserver.core.api.model.player.Account;
-import com.nextplugins.testserver.core.api.model.player.repository.AccountRepository;
+import com.nextplugins.testserver.core.api.model.player.User;
+import com.nextplugins.testserver.core.api.model.player.repository.UserRepository;
 import lombok.Getter;
 import lombok.var;
 import org.bukkit.OfflinePlayer;
@@ -28,45 +28,46 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Singleton
-public final class AccountStorage {
+public final class UserStorage {
 
-    @Getter private final AsyncLoadingCache<UUID, Account> cache = Caffeine.newBuilder()
+    @Getter private final AsyncLoadingCache<UUID, User> cache = Caffeine.newBuilder()
+            .ticker(System::nanoTime)
             .maximumSize(10000)
             .expireAfterWrite(5, TimeUnit.MINUTES)
             .removalListener(this::saveOne)
             .buildAsync(this::selectOne);
 
-    @Inject private AccountRepository accountRepository;
+    @Inject private UserRepository userRepository;
 
     public void init() {
 
-        accountRepository.createTable();
+        userRepository.createTable();
         NextTestServer.getInstance().getLogger().info("DAO do plugin iniciado com sucesso.");
 
     }
 
-    private void saveOne(UUID uuid, Account account, @NonNull RemovalCause removalCause) {
-        accountRepository.update(account);
+    private void saveOne(UUID uuid, User user, @NonNull RemovalCause removalCause) {
+        userRepository.update(user);
     }
 
-    private @NotNull CompletableFuture<Account> selectOne(UUID uuid, @NonNull Executor executor) {
-        return CompletableFuture.completedFuture(accountRepository.selectOne(uuid));
+    private @NotNull CompletableFuture<User> selectOne(UUID uuid, @NonNull Executor executor) {
+        return CompletableFuture.completedFuture(userRepository.selectOne(uuid));
     }
 
     /**
      * Used to get accounts
      *
      * @param player offline player
-     * @return {@link Account} found, if player is online and no have account, return a new account
+     * @return {@link User} found, if player is online and no have account, return a new account
      */
     @Nullable
-    public Account findAccount(OfflinePlayer player) {
+    public User findAccount(OfflinePlayer player) {
         try {
 
             var account = cache.get(player.getUniqueId()).get();
             if (account == null && player.isOnline()) {
 
-                account = Account.createDefault(player).wrap();
+                account = User.createDefault(player).wrap();
                 put(account);
 
             }
@@ -79,16 +80,16 @@ public final class AccountStorage {
         }
     }
 
-    public void put(Account account) {
-        cache.put(account.getUniqueId(), CompletableFuture.completedFuture(account));
+    public void put(User user) {
+        cache.put(user.getUniqueId(), CompletableFuture.completedFuture(user));
     }
 
     public void unload() {
         cache.synchronous().invalidateAll();
     }
 
-    public Collection<Account> getOnlinePlayers() {
-        return cache.synchronous().asMap().values();
+    public Collection<CompletableFuture<User>> getOnlinePlayers() {
+        return cache.asMap().values();
     }
 
 }
