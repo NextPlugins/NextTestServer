@@ -5,6 +5,7 @@ import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
 import com.nextplugins.testserver.core.configuration.MessageValue;
 import com.nextplugins.testserver.core.utils.ColorUtils;
 import lombok.val;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -23,11 +24,11 @@ public class CustomChatListener implements Listener {
 
         if (event.isCancelled()) return;
 
-        val account = accountStorage.from(event.getPlayer());
-        event.setFormat(ColorUtils.colored(MessageValue.get(MessageValue::chatFormat)
+        val account = accountStorage.findAccount(event.getPlayer());
+        event.setFormat(ColorUtils.colored(PlaceholderAPI.setPlaceholders(event.getPlayer(), MessageValue.get(MessageValue::chatFormat)
                 .replace("@player", event.getPlayer().getName())
                 .replace("@group", account.getGroup().getPrefix())
-                .replace("@message", event.getMessage())
+                .replace("@message", event.getMessage()))
         ));
 
     }

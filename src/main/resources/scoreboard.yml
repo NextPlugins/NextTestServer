@@ -1,5 +1,5 @@
 scoreboard:
-  title: '&3&LNEXT PLUGINS'
+  title: '&6&LNEXT TEST'
   lines:
     - '&1'
     - ' &a► &fBem vindo, &c%player_name%'
@@ -7,8 +7,8 @@ scoreboard:
     - ' &2⊦ &bInformações:'
     - '&c'
     - '  &fGrupo: %nexttestserver_group%'
-    - '  &fCoins: &a∞ %nexteconomy_amount%'
-    - '  &fCash: &6✪ %nextcash_amount%'
-    - '  &fTempo online: &e☾ %onlinetime_time%'
+    - '  &fCoins: &aR$%nexteconomy_amount%'
+    - '  &fCash: &6✪%nextcash_amount%'
+    - '  &fTempo online: &e☾%onlinetime_time%'
     - '&0'
-    - '      &bstatus.nextplugins.tk'
+    - '      &7nextplugins.com.br'

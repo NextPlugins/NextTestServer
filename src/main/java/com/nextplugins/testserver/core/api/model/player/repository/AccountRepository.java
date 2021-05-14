@@ -1,15 +1,15 @@
-package com.nextplugins.testserver.core.api.model.player.dao;
+package com.nextplugins.testserver.core.api.model.player.repository;
 
 import com.henryfabio.sqlprovider.executor.SQLExecutor;
 import com.nextplugins.testserver.core.api.model.player.Account;
-import com.nextplugins.testserver.core.api.model.player.dao.adapter.AccountAdapter;
+import com.nextplugins.testserver.core.api.model.player.repository.adapter.AccountAdapter;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.UUID;
 
 @Singleton
-public final class AccountDAO {
+public final class AccountRepository {
 
     private static final String TABLE = "data_players";
 

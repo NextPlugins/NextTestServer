@@ -1,4 +1,4 @@
-package com.nextplugins.testserver.core.api.model.player.dao.adapter;
+package com.nextplugins.testserver.core.api.model.player.repository.adapter;
 
 import com.google.inject.Inject;
 import com.henryfabio.sqlprovider.executor.adapter.SQLResultAdapter;
@@ -9,7 +9,6 @@ import com.nextplugins.testserver.core.api.model.player.Account;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.UUID;

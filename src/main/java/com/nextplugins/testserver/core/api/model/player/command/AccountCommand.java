@@ -43,7 +43,7 @@ public class AccountCommand {
 
         }
 
-        val account = accountStorage.from(player);
+        val account = accountStorage.findAccount(player);
         if (account == null) {
 
             sender.sendMessage(ColorUtils.colored(

@@ -16,7 +16,6 @@ tasks.build.dependsOn('pdm', 'shadowJar')
 repositories {
     mavenCentral()
     mavenLocal()
-    jcenter()
 
     // spigot
 
@@ -37,15 +36,20 @@ dependencies {
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
     compileOnly 'com.github.PlaceholderAPI:PlaceholderAPI:2.10.9'
 
-    implementation 'com.github.HenryFabio:configuration-injector:main-SNAPSHOT'
-    implementation 'com.github.HenryFabio:inventory-api:2.0.3'
-    implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
+    implementation 'com.github.HenryFabio.configuration-injector:common:main-SNAPSHOT'
+    implementation 'com.github.HenryFabio.configuration-injector:bukkit:main-SNAPSHOT'
     implementation 'fr.minuskube:netherboard-bukkit:1.2.1'
 
     // local dependency
     implementation 'com.github.eikefab.libs:yamladapter:1.1-SNAPSHOT'
 
-    pdm 'com.github.SaiintBrisson:command-framework:1.1.0'
+    pdm 'com.github.HenryFabio:inventory-api:2.0.3'
+    pdm 'com.github.HenryFabio:sql-provider:9561f20fd2'
+
+    pdm 'com.github.SaiintBrisson.command-framework:bukkit:1.2.0'
+    pdm 'com.github.SaiintBrisson.command-framework:shared:1.2.0'
+
+    pdm 'com.github.ben-manes.caffeine:caffeine:2.9.0' // 3.0.0 or higher is for java 11+
 
     pdm "com.google.inject:guice:4.0"
     pdm "javax.inject:javax.inject:1"
@@ -70,8 +74,6 @@ bukkit {
 
 shadowJar {
     archiveName("${project.name}-${project.version}.jar")
-    relocate 'com.henryfabio.minecraft.inventoryapi', 'com.nextplugins.testserver.core.libs.inventoryapi'
-    relocate 'com.henryfabio.sqlprovider', 'com.nextplugins.testserver.core.libs.sqlprovider'
     relocate 'com.henryfabio.minecraft.configinjector', 'com.nextplugins.testserver.core.libs.configinjector'
     relocate 'fr.minuskube.netherboard', 'com.nextplugins.testserver.core.libs.netherboard'
 }

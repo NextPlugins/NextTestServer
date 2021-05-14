@@ -1,5 +1,5 @@
 messages:
-  chatFormat: '@group @player&f: &7@message'
+  chatFormat: '{nexteconomy_tycoon} &a[R${nexteconomy_amount}] @group @player&f: &7@message'
   motd:
     normal: "&3&lNEXT PLUGINS &7[1.8x]\n&fElevando seu projeto a outro patamar"
     whitelist: "&3&lNEXT PLUGINS &7[1.8x]\n&fEstamos em &cmanutenção&f, voltamos já"

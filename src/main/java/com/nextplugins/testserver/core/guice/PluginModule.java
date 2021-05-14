@@ -8,7 +8,7 @@ import com.henryfabio.sqlprovider.executor.SQLExecutor;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
 import com.nextplugins.testserver.core.api.model.player.Account;
-import com.nextplugins.testserver.core.api.model.player.dao.adapter.AccountAdapter;
+import com.nextplugins.testserver.core.api.model.player.repository.adapter.AccountAdapter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

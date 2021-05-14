@@ -8,7 +8,6 @@ import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import lombok.Builder;
 import lombok.Data;
 import lombok.val;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
@@ -27,12 +26,16 @@ import java.util.UUID;
 @Builder(builderMethodName = "create", buildMethodName = "wrap")
 public class Account {
 
-    @Inject private static GroupStorage groupStorage;
+    @Inject
+    private static GroupStorage groupStorage;
 
-    @Nullable private Player player;
-    @Nonnull private OfflinePlayer offlinePlayer;
+    @Nullable
+    private Player player;
+    @Nonnull
+    private OfflinePlayer offlinePlayer;
 
-    @Nullable private PermissionAttachment attachment;
+    @Nullable
+    private PermissionAttachment attachment;
 
     private String name;
     private UUID uniqueId;
@@ -40,25 +43,26 @@ public class Account {
     private Group group;
     private List<String> permissions;
 
-    public static AccountBuilder createDefault(Player player) {
-
-        val offlinePlayer = Bukkit.getOfflinePlayer(player.getUniqueId());
-        val attachment = player.addAttachment(NextTestServer.getInstance());
-
-        return Account.createDefault(offlinePlayer)
-                .player(player)
-                .attachment(attachment);
-
-    }
-
     public static AccountBuilder createDefault(OfflinePlayer player) {
 
-        return Account.create()
+        val accountBuilder = Account.create()
                 .offlinePlayer(player)
                 .name(player.getName())
                 .uniqueId(player.getUniqueId())
                 .permissions(Lists.newArrayList())
                 .group(groupStorage.getGroupByName("Membro"));
+
+        if (player.isOnline()) {
+
+            val onlinePlayer = player.getPlayer();
+            val attachment = onlinePlayer.addAttachment(NextTestServer.getInstance());
+
+            accountBuilder.player(player.getPlayer())
+                    .attachment(attachment);
+
+        }
+
+        return accountBuilder;
 
     }
 

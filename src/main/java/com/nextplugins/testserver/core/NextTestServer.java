@@ -1,5 +1,6 @@
 package com.nextplugins.testserver.core;
 
+import com.google.common.base.Stopwatch;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.henryfabio.minecraft.inventoryapi.manager.InventoryManager;
@@ -14,11 +15,14 @@ import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.ScoreboardManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
 import lombok.Getter;
+import lombok.val;
 import me.bristermitten.pdm.PluginDependencyManager;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Level;
 
 @Getter
 public final class NextTestServer extends JavaPlugin {
@@ -42,46 +46,63 @@ public final class NextTestServer extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        PluginDependencyManager.of(this).loadAllDependencies().thenRun(() -> {
+        getLogger().info("Baixando e carregando dependências necessárias...");
 
-            try {
+        val downloadTime = Stopwatch.createStarted();
 
-                InventoryManager.enable(this);
+        PluginDependencyManager.of(this)
+                .loadAllDependencies()
+                .exceptionally(throwable -> {
 
-                this.sqlConnector = configureSqlProvider(this.getConfig());
+                    throwable.printStackTrace();
 
-                this.injector = PluginModule.of(this).createInjector();
-                this.injector.injectMembers(this);
+                    getLogger().severe("Ocorreu um erro durante a inicialização do plugin!");
+                    Bukkit.getPluginManager().disablePlugin(this);
 
-                CommandRegistry.enable(this);
-                ConfigurationRegistry.enable(this);
-                PlaceholderRegistry.enable(this);
-                ListenerRegistry.enable(this);
+                    return null;
 
-                this.inventoryRegistry.init();
+                })
+                .join();
 
-                this.groupStorage.init();
-                this.accountStorage.init();
+        downloadTime.stop();
 
-                this.tablistManager.init();
-                this.locationManager.init();
-                this.scoreboardManager.init();
+        getLogger().log(Level.INFO, "Dependências carregadas com sucesso! ({0})", downloadTime);
+        getLogger().info("Iniciando carregamento do plugin.");
 
-                this.getLogger().info("Plugin enabled successfully");
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+        val loadTime = Stopwatch.createStarted();
 
-        });
+        InventoryManager.enable(this);
+
+        sqlConnector = configureSqlProvider(getConfig());
+
+        injector = PluginModule.of(this).createInjector();
+        injector.injectMembers(this);
+
+        CommandRegistry.enable(this);
+        ConfigurationRegistry.enable(this);
+        PlaceholderRegistry.enable(this);
+        ListenerRegistry.enable(this);
+
+        inventoryRegistry.init();
+
+        groupStorage.init();
+        accountStorage.init();
+
+        tablistManager.init();
+        locationManager.init();
+        scoreboardManager.init();
+
+        loadTime.stop();
+        getLogger().log(Level.INFO, "Plugin inicializado com sucesso. ({0})", loadTime);
 
     }
 
     @Override
     public void onDisable() {
 
-        this.groupStorage.unload();
-        this.accountStorage.unload();
-        this.locationManager.unload();
+        groupStorage.unload();
+        accountStorage.unload();
+        locationManager.unload();
 
     }
 
