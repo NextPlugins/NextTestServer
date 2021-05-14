@@ -38,7 +38,7 @@ public class AccountView extends SimpleInventory {
                         " &fÚltimo login: &e" + DateUtils.format(account.getOfflinePlayer().getLastPlayed()),
                         " &fStatus: " + (account.getOfflinePlayer().isOnline() ? "&aOnline" : "&cOffline"),
                         "",
-                        " &fGrupo: " + account.getGroup().getName(),
+                        " &fGrupo: " + account.getGroup().getPrefix(),
                         " &fPermissões: &e" + account.getPermissions().size() + " permissões",
                         ""
                 )
@@ -53,7 +53,12 @@ public class AccountView extends SimpleInventory {
                         "  &aGrupo atual &8➜ &b" + account.getGroup().getName(),
                         ""
                 )
-                .result()));
+                .result())
+                .defaultCallback(callback -> {
+
+
+
+                }));
 
         editor.setItem(15, InventoryItem.of(ItemBuilder.of(Material.EMPTY_MAP)
                 .name("&6Visualizar Permissões")

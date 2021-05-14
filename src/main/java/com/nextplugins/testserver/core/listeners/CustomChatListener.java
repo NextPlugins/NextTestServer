@@ -1,10 +1,6 @@
 package com.nextplugins.testserver.core.listeners;
 
-import com.google.inject.Inject;
-import com.nextplugins.testserver.core.api.model.player.storage.AccountStorage;
 import com.nextplugins.testserver.core.configuration.MessageValue;
-import com.nextplugins.testserver.core.utils.ColorUtils;
-import lombok.val;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,19 +13,15 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public class CustomChatListener implements Listener {
 
-    @Inject private AccountStorage accountStorage;
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChatMessage(AsyncPlayerChatEvent event) {
 
         if (event.isCancelled()) return;
 
-        val account = accountStorage.findAccount(event.getPlayer());
-        event.setFormat(ColorUtils.colored(PlaceholderAPI.setPlaceholders(event.getPlayer(), MessageValue.get(MessageValue::chatFormat)
-                .replace("@player", event.getPlayer().getName())
-                .replace("@group", account.getGroup().getPrefix())
-                .replace("@message", event.getMessage()))
-        ));
+        event.setFormat(PlaceholderAPI.setPlaceholders(
+                event.getPlayer(),
+                MessageValue.get(MessageValue::chatFormat).replace("@message", event.getMessage()))
+        );
 
     }
 

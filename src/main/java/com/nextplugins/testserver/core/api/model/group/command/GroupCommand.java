@@ -79,7 +79,7 @@ public class GroupCommand {
                 "&aNextCore &7- &fEditar grupo",
                 "",
                 " &a/grupo listar &7- &fVer todos os grupos existentes",
-                " &a/grupo criar <grupo> &7- &fCriar um novo grupo",
+                " &a/grupo criar <grupo> <nome colorido> &7- &fCriar um novo grupo",
                 " &a/grupo delete <grupo> &7- &fDeletar um novo grupo",
                 " &a/grupo add <grupo> <permissão> &7- &fAdicionar permissão à um grupo",
                 " &a/grupo remove <grupo> <permissão> &7- &fRemover permissão de um grupo",
@@ -269,7 +269,7 @@ public class GroupCommand {
         for (int i = 0; i < group.getPermissions().size(); i++) {
 
             String permission = group.getPermissions().get(i);
-            sender.sendMessage(ColorUtils.colored("&8" + i + "º: &f" + permission));
+            sender.sendMessage(ColorUtils.colored("&8" + (i + 1) + "º: &f" + permission));
 
         }
 

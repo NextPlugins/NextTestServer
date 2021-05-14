@@ -80,7 +80,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder name(String name) {
-        itemMeta.setDisplayName(name);
+        itemMeta.setDisplayName(ColorUtils.colored(name));
         return this;
     }
 
