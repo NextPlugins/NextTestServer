@@ -26,6 +26,7 @@ public class ScoreboardManager {
 
     public void init() {
 
+        // TODO remove task
         Bukkit.getScheduler().runTaskTimer(
                 NextTestServer.getInstance(),
                 this::updateAllScoreboards,
