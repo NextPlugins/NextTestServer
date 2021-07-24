@@ -1,5 +1,6 @@
 package com.nextplugins.testserver.core.manager;
 
+import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.map.CaseInsensitiveLinkedMap;
 import com.nextplugins.testserver.core.configuration.LocationValue;
 import com.nextplugins.testserver.core.utils.LocationUtils;
@@ -34,7 +35,7 @@ public final class LocationManager {
 
     public void unload() {
 
-        val file = new File("locations.yml");
+        val file = new File(NextTestServer.getInstance().getDataFolder(), "locations.yml");
         val configuration = YamlConfiguration.loadConfiguration(file);
 
         for (String key : locationMap.keySet()) {

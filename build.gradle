@@ -1,7 +1,6 @@
 plugins {
     id 'java'
 
-    id 'me.bristermitten.pdm' version '0.0.30'
     id 'com.github.johnrengelman.shadow' version '5.0.0'
 
     id 'net.minecrell.plugin-yml.bukkit' version '0.3.0'
@@ -11,7 +10,7 @@ plugins {
 group = 'com.nextplugins'
 version = '1.0.2'
 
-tasks.build.dependsOn 'pdm', 'shadowJar'
+tasks.build.dependsOn 'shadowJar'
 
 repositories {
     mavenCentral()
@@ -44,13 +43,13 @@ dependencies {
     // local dependency
     implementation 'com.github.eikefab.libs:yamladapter:1.1-SNAPSHOT'
 
-    pdm 'com.github.HenryFabio:inventory-api:2.0.3'
-    pdm 'com.github.HenryFabio:sql-provider:9561f20fd2'
+    implementation 'com.github.HenryFabio:inventory-api:2.0.3'
+    implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
 
-    pdm "com.google.inject:guice:4.0"
-    pdm "javax.inject:javax.inject:1"
-    pdm "aopalliance:aopalliance:1.0"
-    pdm "org.ow2.asm:asm:8.0.1"
+    implementation "com.google.inject:guice:4.0"
+    implementation "javax.inject:javax.inject:1"
+    implementation "aopalliance:aopalliance:1.0"
+    implementation "org.ow2.asm:asm:8.0.1"
 
     def lombok = 'org.projectlombok:lombok:1.18.16'
     compileOnly lombok
@@ -70,10 +69,30 @@ bukkit {
 
 shadowJar {
     archiveName "${project.name}-${project.version}.jar"
+
+    relocate 'com.github.eikefab.libs.yamladapter', 'com.nextplugins.testserver.core.libs.yamladapter'
+
     relocate 'com.henryfabio.minecraft.configinjector', 'com.nextplugins.testserver.core.libs.configinjector'
+    relocate 'com.henryfabio.minecraft.inventoryapi', 'com.nextplugins.testserver.core.libs.inventoryapi'
+
+    relocate 'com.henryfabio.sqlprovider', 'com.nextplugins.testserver.core.libs.sqlprovider'
+    relocate 'com.zaxxer.hikari', 'com.nextplugins.testserver.core.libs.hikari'
+
     relocate 'fr.minuskube.netherboard', 'com.nextplugins.testserver.core.libs.netherboard'
-    relocate 'com.github.benmanes.caffeine', 'com.nextplugins.testserver.libs.caffeine'
-    relocate 'me.saiintbrisson.bukkit.command', 'com.nextplugins.testserver.libs.command'
+
+    relocate 'com.github.benmanes.caffeine', 'com.nextplugins.testserver.core.libs.caffeine'
+
+    relocate 'me.saiintbrisson.minecraft.command', 'com.nextplugins.testserver.core.libs.command.common'
+    relocate 'me.saiintbrisson.bukkit.command', 'com.nextplugins.testserver.core.libs.command.bukkit'
+
+    // guice
+    relocate 'com.google.common', 'com.nextplugins.testserver.core.libs.guice.common'
+    relocate 'com.google.inject', 'com.nextplugins.testserver.core.libs.guice.inject'
+    relocate 'com.google.thirdparty', 'com.nextplugins.testserver.core.libs.guice.thirdparty'
+    relocate 'javax.inject', 'com.nextplugins.testserver.core.libs.guice.inject.javax'
+
+    relocate 'com.google.errorprone.annotations', 'com.nextplugins.testserver.core.libs.annotations'
+
 }
 
 compileJava {
