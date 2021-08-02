@@ -14,7 +14,7 @@ public class MotdListener implements Listener {
 
     @EventHandler
     public void onMotd(ServerListPingEvent event) {
-        if (Bukkit.getServer().hasWhitelist()) event.setMotd(MessageValue.get(MessageValue::motdWhitelist));
+        if (Bukkit.hasWhitelist()) event.setMotd(MessageValue.get(MessageValue::motdWhitelist));
         else event.setMotd(MessageValue.get(MessageValue::motd));
     }
 
