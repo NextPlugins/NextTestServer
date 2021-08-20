@@ -26,16 +26,9 @@ import java.util.UUID;
 @Builder(builderMethodName = "create", buildMethodName = "wrap")
 public class User {
 
-    @Inject
-    private static GroupStorage groupStorage;
+    @Nonnull private OfflinePlayer offlinePlayer;
 
-    @Nullable
-    private Player player;
-    @Nonnull
-    private OfflinePlayer offlinePlayer;
-
-    @Nullable
-    private PermissionAttachment attachment;
+    @Nullable private PermissionAttachment attachment;
 
     private String name;
     private UUID uniqueId;
@@ -45,20 +38,20 @@ public class User {
 
     public static UserBuilder createDefault(OfflinePlayer player) {
 
+        val instance = NextTestServer.getInstance();
         val accountBuilder = User.create()
                 .offlinePlayer(player)
                 .name(player.getName())
                 .uniqueId(player.getUniqueId())
                 .permissions(Lists.newArrayList())
-                .group(groupStorage.getGroupByName("Membro"));
+                .group(instance.getGroupStorage().getGroupByName("Membro"));
 
         if (player.isOnline()) {
 
             val onlinePlayer = player.getPlayer();
-            val attachment = onlinePlayer.addAttachment(NextTestServer.getInstance());
+            val attachment = onlinePlayer.addAttachment(instance);
 
-            accountBuilder.player(player.getPlayer())
-                    .attachment(attachment);
+            accountBuilder.attachment(attachment);
 
         }
 

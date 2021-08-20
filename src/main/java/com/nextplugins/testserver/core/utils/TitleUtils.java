@@ -12,6 +12,10 @@ import java.util.Arrays;
  */
 public class TitleUtils {
 
+    public static void sendTitle(Player player, String message) {
+        sendTitle(player, message, 12, 20, 13);
+    }
+
     public static void sendTitle(Player player, String message, int fadeIn, int stay, int fadeOut) {
         try {
             sendTitlePacket(player, buildTitlePackets(message, fadeIn, stay, fadeOut));

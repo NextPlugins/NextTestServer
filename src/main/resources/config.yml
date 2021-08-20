@@ -18,7 +18,3 @@ connection:
     database: "test"
   sqlite:
     file: "plugins/NextTestServer/data.sql"
-
-github:
-  username: 'NextPlugins'
-  accessToken: ''

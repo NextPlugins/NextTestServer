@@ -22,11 +22,11 @@ public final class LocationManager {
     public void init() {
 
         val section = LocationValue.get(LocationValue::section);
-        for (String key : section.getKeys(false)) {
+        for (val key : section.getKeys(false)) {
 
             val line = section.getString(key);
 
-            Location location = LocationUtils.fromString(line.split(","));
+            val location = LocationUtils.fromString(line.split(","));
             locationMap.put(key, location);
 
         }
@@ -38,11 +38,8 @@ public final class LocationManager {
         val file = new File(NextTestServer.getInstance().getDataFolder(), "locations.yml");
         val configuration = YamlConfiguration.loadConfiguration(file);
 
-        for (String key : locationMap.keySet()) {
-
-            val location = locationMap.get(key);
-            configuration.set("locations." + key, LocationUtils.toString(location));
-
+        for (val entry : locationMap.entrySet()) {
+            configuration.set("locations." + entry.getKey(), LocationUtils.toString(entry.getValue()));
         }
 
         try {

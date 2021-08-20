@@ -19,7 +19,6 @@ public final class ConfigurationRegistry {
         );
 
         configurationInjector.injectConfiguration(
-                ConfigValue.instance(),
                 MessageValue.instance(),
                 PermissionsValue.instance(),
                 LocationValue.instance(),

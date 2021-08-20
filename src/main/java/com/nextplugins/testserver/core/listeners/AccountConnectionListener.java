@@ -2,12 +2,11 @@ package com.nextplugins.testserver.core.listeners;
 
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
-import com.nextplugins.testserver.core.api.model.player.User;
 import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
+import lombok.val;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -31,9 +30,10 @@ public class AccountConnectionListener implements Listener {
                 () -> tablistManager.sendTablist(event.getPlayer())
         );
 
-        Location spawn = locationManager.getLocation("spawn");
+        val spawn = locationManager.getLocation("spawn");
         if (spawn == null) return;
 
+        spawn.getChunk().load(true);
         event.getPlayer().teleport(spawn);
 
     }
@@ -41,7 +41,9 @@ public class AccountConnectionListener implements Listener {
     @EventHandler
     public void unloadAttachment(PlayerQuitEvent event) {
 
-        User user = userStorage.findAccount(event.getPlayer());
+        val user = userStorage.findAccount(event.getPlayer());
+        if (user == null) return;
+
         event.getPlayer().removeAttachment(user.getAttachment());
 
     }

@@ -1,20 +1,16 @@
 package com.nextplugins.testserver.core.placeholder;
 
-import com.google.inject.Inject;
-import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
+import com.nextplugins.testserver.core.NextTestServer;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public final class PlaceholderHook extends PlaceholderExpansion {
 
-    private final Plugin plugin;
-
-    @Inject private UserStorage userStorage;
+    private final NextTestServer plugin;
 
     @Override
     public @NotNull String getIdentifier() {
@@ -37,7 +33,9 @@ public final class PlaceholderHook extends PlaceholderExpansion {
 
         if (params.equalsIgnoreCase("group")) {
 
-            val account = userStorage.findAccount(player);
+            val account = plugin.getUserStorage().findAccount(player);
+            if (account == null) return "&cOcorreu um erro!";
+
             return account.getGroup().getPrefix();
 
         }

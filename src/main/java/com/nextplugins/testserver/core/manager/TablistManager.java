@@ -7,8 +7,6 @@ import lombok.val;
 import org.bukkit.entity.Player;
 
 import javax.inject.Singleton;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -28,15 +26,15 @@ public class TablistManager {
             val header = MessageValue.get(MessageValue::tablistHeader);
             val footer = MessageValue.get(MessageValue::tablistFooter);
 
-            Object tabHeader = buildComponentPacket(MessageUtils.joinStrings(header));
-            Object tabFooter = buildComponentPacket(MessageUtils.joinStrings(footer));
+            val tabHeader = buildComponentPacket(MessageUtils.joinStrings(header));
+            val tabFooter = buildComponentPacket(MessageUtils.joinStrings(footer));
 
-            Constructor<?> titleConstructor = PacketUtils.getNMSClass("PacketPlayOutPlayerListHeaderFooter")
+            val titleConstructor = PacketUtils.getNMSClass("PacketPlayOutPlayerListHeaderFooter")
                     .getConstructor(PacketUtils.getNMSClass("IChatBaseComponent"));
 
             packet = titleConstructor.newInstance(tabHeader);
 
-            Field field = packet.getClass().getDeclaredField("b");
+            val field = packet.getClass().getDeclaredField("b");
             field.setAccessible(true);
             field.set(packet, tabFooter);
 

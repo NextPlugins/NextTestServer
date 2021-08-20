@@ -6,14 +6,14 @@ messages:
   tablist:
     header:
       - '&3&lNEXT PLUGINS'
-      - '&e    test.nextplugins.tk'
+      - '&e    test.nextplugins.com.br'
     footer:
       - '&7'
-      - '&bDiscord: &fnextplugins.tk/discord'
-      - '&bTwitter: &fnextplugins.tk/twitter'
+      - '&bDiscord: &fnextplugins.com.br/discord'
+      - '&bTwitter: &fnextplugins.com.br/twitter'
       - '&bLoja: &cEm manutenção'
       - '&7'
-      - '&3Evolua o seu servidor usando os plugins da &bNext&f: &8nextplugins.tk/discord'
+      - '&3Evolua o seu servidor usando os plugins da &bNext&f: &8nextplugins.com.br/discord'
   teleport:
     teleporting: '&6&LWARP<nl>&fAguarde &e%time%s &fpara viajar até o local'
     teleported: '&6&LWARP<nl>&fVocê viajou até a warp &e%warp%'

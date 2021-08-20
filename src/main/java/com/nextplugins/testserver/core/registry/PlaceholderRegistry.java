@@ -4,13 +4,14 @@ import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.placeholder.PlaceholderHook;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.val;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PlaceholderRegistry {
 
     public static void enable(NextTestServer plugin) {
 
-        PlaceholderHook placeholderHook = new PlaceholderHook(plugin);
+        val placeholderHook = new PlaceholderHook(plugin);
         plugin.getInjector().injectMembers(placeholderHook);
 
         placeholderHook.register();
