@@ -2,7 +2,7 @@ package com.nextplugins.testserver.core.api.model.group.adapter;
 
 import com.github.eikefab.libs.yamladapter.YamlAdapter;
 import com.nextplugins.testserver.core.api.model.group.Group;
-import com.nextplugins.testserver.core.utils.ColorUtils;
+import com.nextplugins.testserver.core.utils.ColorUtil;
 import lombok.val;
 import org.bukkit.configuration.ConfigurationSection;
 
@@ -20,10 +20,11 @@ public final class GroupYamlAdapter implements YamlAdapter<Group> {
 
         return Group.builder()
                 .name(section.getName())
-                .prefix(ColorUtils.colored(groupConfig.getString("prefix")))
+                .prefix(ColorUtil.colored(groupConfig.getString("prefix")))
                 .sorter(groupConfig.getString("sorter").charAt(0))
                 .priority(groupConfig.getInt("priority"))
                 .permissions(section.getStringList("permissions"))
+                .defaultGroup(section.getBoolean("default", false))
                 .build();
 
     }

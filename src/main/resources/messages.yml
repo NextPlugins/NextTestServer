@@ -1,19 +1,19 @@
 messages:
-  chatFormat: '{nexteconomy_tycoon} &a[R${nexteconomy_amount}] @group @player&f: &7@message'
+  chatFormat: '%nexteconomy_tycoon%@group @player&f: &7@message'
   motd:
     normal: "&3&lNEXT PLUGINS &7[1.8x]\n&fElevando seu projeto a outro patamar"
     whitelist: "&3&lNEXT PLUGINS &7[1.8x]\n&fEstamos em &cmanutenção&f, voltamos já"
   tablist:
     header:
       - '&3&lNEXT PLUGINS'
-      - '&e    test.nextplugins.com.br'
+      - '&a    test.nextplugins.com.br'
     footer:
       - '&7'
       - '&bDiscord: &fnextplugins.com.br/discord'
       - '&bTwitter: &fnextplugins.com.br/twitter'
-      - '&bLoja: &cEm manutenção'
+      - '&bAvalie-nos: &fnextplugins.com.br/rating'
       - '&7'
-      - '&3Evolua o seu servidor usando os plugins da &bNext&f: &8nextplugins.com.br/discord'
+      - '&3Evolua o seu servidor usando os plugins da &bNext&f: &anextplugins.com.br/discord'
   teleport:
     teleporting: '&6&LWARP<nl>&fAguarde &e%time%s &fpara viajar até o local'
     teleported: '&6&LWARP<nl>&fVocê viajou até a warp &e%warp%'

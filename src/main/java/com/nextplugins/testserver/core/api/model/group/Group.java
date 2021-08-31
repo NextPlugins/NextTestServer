@@ -23,6 +23,7 @@ public class Group {
 
     private final int priority;
     private final char sorter;
+    private final boolean defaultGroup;
 
     public static Group createDefault(String name, String coloredName) {
 
@@ -31,7 +32,8 @@ public class Group {
                 .resumedPrefix("&c" + name)
                 .prefix(coloredName)
                 .priority(0)
-                .sorter('c')
+                .defaultGroup(false)
+                .sorter('z')
                 .permissions(Lists.newArrayList())
                 .build();
 

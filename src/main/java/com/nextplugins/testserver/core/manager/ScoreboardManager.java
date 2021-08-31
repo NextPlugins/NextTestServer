@@ -25,20 +25,16 @@ public class ScoreboardManager {
     private final Netherboard netherboard = Netherboard.instance();
 
     public void init() {
-
-        // TODO remove task
-        Bukkit.getScheduler().runTaskTimer(
+        Bukkit.getScheduler().runTaskTimerAsynchronously(
                 NextTestServer.getInstance(),
                 this::updateAllScoreboards,
                 20L * 15L, 20 * 15L
         );
-
     }
 
     public void updateScoreboard(Player player) {
 
-        BPlayerBoard scoreboard = getPlayerScoreboard(player);
-        if (scoreboard == null) scoreboard = createDefault(player);
+        val scoreboard = getPlayerScoreboard(player);
 
         val lines = ScoreboardValue.get(ScoreboardValue::lines);
         for (int i = 0; i < lines.size(); i++) {
@@ -50,16 +46,11 @@ public class ScoreboardManager {
 
     }
 
-    private BPlayerBoard createDefault(Player player) {
-
-        return Netherboard.instance().createBoard(
-                player,
-                ScoreboardValue.get(ScoreboardValue::title)
-        );
-
+    public BPlayerBoard getPlayerScoreboard(Player player) {
+        return getCacheBoard(player);
     }
 
-    public BPlayerBoard getPlayerScoreboard(Player player) {
+    public BPlayerBoard getCacheBoard(Player player) {
         return this.netherboard.getBoard(player);
     }
 

@@ -6,7 +6,7 @@ import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import com.nextplugins.testserver.core.api.model.group.utils.GroupUtils;
 import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import com.nextplugins.testserver.core.api.model.player.utils.UserUtil;
-import com.nextplugins.testserver.core.utils.ColorUtils;
+import com.nextplugins.testserver.core.utils.ColorUtil;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.command.Context;
@@ -27,6 +27,7 @@ public class GroupCommand {
     @Command(
             name = "setgrupo",
             permission = "nextcore.setgroup",
+            usage = "setgrupo <jogador> <grupo>",
             async = true
     )
     public void onSetGroupCommand(Context<CommandSender> context,
@@ -38,7 +39,7 @@ public class GroupCommand {
         val group = groupStorage.getGroupByName(groupName);
         if (group == null) {
 
-            sender.sendMessage(ColorUtils.colored(
+            sender.sendMessage(ColorUtil.colored(
                     "&cGrupo inexistente."
             ));
             return;
@@ -49,7 +50,7 @@ public class GroupCommand {
         val account = userStorage.findAccount(player);
         if (account == null) {
 
-            sender.sendMessage(ColorUtils.colored(
+            sender.sendMessage(ColorUtil.colored(
                     "&cOcorreu um erro, tente novamente quando este jogador entrar no servidor."
             ));
             return;
@@ -59,7 +60,7 @@ public class GroupCommand {
 
         UserUtil.changeGroup(account, group);
 
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "&aGrupo do jogador &f" + player.getName() + " &aatualizado com sucesso."
         ));
 
@@ -74,7 +75,7 @@ public class GroupCommand {
     public void onGroupCommand(Context<CommandSender> context) {
 
         CommandSender sender = context.getSender();
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "",
                 "&aNextCore &7- &fEditar grupo",
                 "",
@@ -97,7 +98,7 @@ public class GroupCommand {
     )
     public void onGroupList(Context<CommandSender> context) {
 
-        context.sendMessage(ColorUtils.colored(
+        context.sendMessage(ColorUtil.colored(
                 "",
                 " &fTodos os &6grupos &fdo servidor &8(" + groupStorage.getGroupNames().size() + ")&7:",
                 ""
@@ -108,7 +109,7 @@ public class GroupCommand {
             String groupName = groupStorage.getGroupNames().get(i);
             Group group = groupStorage.getGroupByName(groupName);
 
-            context.sendMessage(ColorUtils.colored(String.format(
+            context.sendMessage(ColorUtil.colored(String.format(
                     GROUP_INFO,
                     i + 1, group.getName(), group.getPrefix(), group.getPermissions().size()
             )));
@@ -120,7 +121,7 @@ public class GroupCommand {
             name = "grupo.criar",
             aliases = {"create"},
             permission = "nextcore.criargrupo",
-            usage = "grupo criar <nome> <nome colorido>",
+            usage = "grupo criar <nome> <prefix>",
             async = true
     )
     public void onGroupCreate(Context<CommandSender> context,
@@ -130,7 +131,7 @@ public class GroupCommand {
         val sender = context.getSender();
         if (groupStorage.getGroupByName(groupName) != null) {
 
-            sender.sendMessage(ColorUtils.colored(
+            sender.sendMessage(ColorUtil.colored(
                     "&cEste grupo já existe."
             ));
             return;
@@ -140,7 +141,7 @@ public class GroupCommand {
         val group = Group.createDefault(groupName, coloredName);
         this.groupStorage.register(group);
 
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "&aGrupo criado com sucesso."
         ));
 
@@ -150,6 +151,7 @@ public class GroupCommand {
             name = "grupo.delete",
             aliases = {"deletar"},
             permission = "nextcore.group.delete",
+            usage = "grupo deletar <grupo>",
             async = true
     )
     public void onGroupDelete(Context<CommandSender> context,
@@ -160,7 +162,7 @@ public class GroupCommand {
 
         if (group == null) {
 
-            sender.sendMessage(ColorUtils.colored(
+            sender.sendMessage(ColorUtil.colored(
                     "&cEste grupo não existe."
             ));
             return;
@@ -169,7 +171,7 @@ public class GroupCommand {
 
         this.groupStorage.unregister(group.getName());
 
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "&aGrupo deletado com sucesso."
         ));
 
@@ -179,7 +181,7 @@ public class GroupCommand {
             name = "grupo.add",
             aliases = {"adicionar"},
             permission = "nextcore.editgrupo",
-            usage = "grupo add <group> <permissao>",
+            usage = "grupo add <grupo> <permissao>",
             async = true
     )
     public void onAddPermissionOnGroup(Context<CommandSender> context,
@@ -191,8 +193,8 @@ public class GroupCommand {
         Group group = groupStorage.getGroupByName(groupName);
         if (group == null) {
 
-            sender.sendMessage(ColorUtils.colored("&cEste grupo não existe, grupos válidos:"));
-            sender.sendMessage(ColorUtils.colored("&c" + groupStorage.getGroupNames()));
+            sender.sendMessage(ColorUtil.colored("&cEste grupo não existe, grupos válidos:"));
+            sender.sendMessage(ColorUtil.colored("&c" + groupStorage.getGroupNames()));
             return;
 
         }
@@ -200,12 +202,12 @@ public class GroupCommand {
         val success = GroupUtils.addPermission(group, permission);
         if (success) {
 
-            sender.sendMessage(ColorUtils.colored("&aVocê adicionou a permissão &f" + permission + " &aao grupo " + group.getPrefix() + " &acom sucesso."));
+            sender.sendMessage(ColorUtil.colored("&aVocê adicionou a permissão &f" + permission + " &aao grupo " + group.getPrefix() + " &acom sucesso."));
             return;
 
         }
 
-        sender.sendMessage(ColorUtils.colored("&cEsta permissão já é presente no grupo."));
+        sender.sendMessage(ColorUtil.colored("&cEsta permissão já é presente no grupo."));
 
     }
 
@@ -213,7 +215,7 @@ public class GroupCommand {
             name = "grupo.remove",
             aliases = {"rem"},
             permission = "nextcore.group.remove",
-            usage = "group remove <group> <permissao>",
+            usage = "group remove <grupo> <permissao>",
             async = true
     )
     public void onRemovePermissionOnGroup(Context<CommandSender> context,
@@ -225,8 +227,8 @@ public class GroupCommand {
         Group group = groupStorage.getGroupByName(groupName);
         if (group == null) {
 
-            sender.sendMessage(ColorUtils.colored("&cEste grupo não existe, grupos válidos:"));
-            sender.sendMessage(ColorUtils.colored("&c" + groupStorage.getGroupNames()));
+            sender.sendMessage(ColorUtil.colored("&cEste grupo não existe, grupos válidos:"));
+            sender.sendMessage(ColorUtil.colored("&c" + groupStorage.getGroupNames()));
             return;
 
         }
@@ -234,12 +236,12 @@ public class GroupCommand {
         val success = GroupUtils.removePermission(group, permission);
         if (success) {
 
-            sender.sendMessage(ColorUtils.colored("&aVocê removeu a permissão &f" + permission + " &aao grupo " + group.getPrefix() + " &acom sucesso."));
+            sender.sendMessage(ColorUtil.colored("&aVocê removeu a permissão &f" + permission + " &aao grupo " + group.getPrefix() + " &acom sucesso."));
             return;
 
         }
 
-        sender.sendMessage(ColorUtils.colored("&cEsta permissão não faz parte deste grupo."));
+        sender.sendMessage(ColorUtil.colored("&cEsta permissão não faz parte deste grupo."));
 
     }
 
@@ -247,7 +249,7 @@ public class GroupCommand {
             name = "grupo.perms",
             aliases = {"permissoes"},
             permission = "nextcore.group.permissions",
-            usage = "grupo perms <nome>",
+            usage = "grupo perms <grupo>",
             async = true
     )
     public void onListPermissionGroup(Context<CommandSender> context,
@@ -258,22 +260,20 @@ public class GroupCommand {
         Group group = groupStorage.getGroupByName(groupName);
         if (group == null) {
 
-            sender.sendMessage(ColorUtils.colored("&cEste grupo não existe, grupos válidos:"));
-            sender.sendMessage(ColorUtils.colored("&c" + groupStorage.getGroupNames()));
+            sender.sendMessage(ColorUtil.colored("&cEste grupo não existe, grupos válidos:"));
+            sender.sendMessage(ColorUtil.colored("&c" + groupStorage.getGroupNames()));
             return;
 
         }
 
-        sender.sendMessage(ColorUtils.colored("", "&aTodas as permissões do grupo " + group.getPrefix() + "&a:", ""));
+        sender.sendMessage(ColorUtil.colored("&aTodas as permissões do grupo " + group.getPrefix() + "&a:", ""));
 
         for (int i = 0; i < group.getPermissions().size(); i++) {
 
-            String permission = group.getPermissions().get(i);
-            sender.sendMessage(ColorUtils.colored("&8" + (i + 1) + "º: &f" + permission));
+            val permission = group.getPermissions().get(i);
+            sender.sendMessage(ColorUtil.colored("&8" + (i + 1) + "º: &f" + permission));
 
         }
-
-        sender.sendMessage("");
 
     }
 

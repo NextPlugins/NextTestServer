@@ -3,7 +3,7 @@ package com.nextplugins.testserver.core.api.model.player.command;
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
 import com.nextplugins.testserver.core.registry.InventoryRegistry;
-import com.nextplugins.testserver.core.utils.ColorUtils;
+import com.nextplugins.testserver.core.utils.ColorUtil;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.annotation.Optional;
@@ -34,19 +34,12 @@ public class UserCommand {
                                  @Optional OfflinePlayer player) {
 
         val sender = context.getSender();
-        if (player == null) {
-
-            sender.sendMessage(ColorUtils.colored(
-                    "&cEste jogador não existe."
-            ));
-            return;
-
-        }
+        if (player == null) player = sender;
 
         val account = userStorage.findAccount(player);
         if (account == null) {
 
-            sender.sendMessage(ColorUtils.colored(
+            sender.sendMessage(ColorUtil.colored(
                     "&cOcorreu um erro, tente novamente quando este jogador entrar no servidor."
             ));
             return;

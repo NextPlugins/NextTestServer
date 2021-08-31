@@ -12,10 +12,6 @@ import java.util.Arrays;
  */
 public class TitleUtils {
 
-    public static void sendTitle(Player player, String message) {
-        sendTitle(player, message, 12, 20, 13);
-    }
-
     public static void sendTitle(Player player, String message, int fadeIn, int stay, int fadeOut) {
         try {
             sendTitlePacket(player, buildTitlePackets(message, fadeIn, stay, fadeOut));
@@ -42,8 +38,8 @@ public class TitleUtils {
     public static Object[] buildTitlePackets(String message, int fadeIn, int stay, int fadeOut) {
 
         String[] split = message.split("<nl>");
-        String title = ColorUtils.colored(split[0]);
-        String subtitle = ColorUtils.colored(split[1]);
+        String title = ColorUtil.colored(split[0]);
+        String subtitle = ColorUtil.colored(split[1]);
 
         return new Object[] {
                 buildPacket(title, "TITLE", fadeIn, stay, fadeOut),

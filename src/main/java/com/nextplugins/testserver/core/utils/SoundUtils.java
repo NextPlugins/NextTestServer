@@ -13,6 +13,15 @@ import org.bukkit.entity.Player;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SoundUtils {
 
+    public static void sendSound(Player player, String soundName) {
+
+        Sound sound = Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
+        try { sound = Sound.valueOf(soundName);} catch (Exception exception) {}
+
+        sendSound(player, sound);
+
+    }
+
     public static void sendSound(Player player, Sound sound) {
         sendSound(player, sound, 0.5f, 1f);
     }

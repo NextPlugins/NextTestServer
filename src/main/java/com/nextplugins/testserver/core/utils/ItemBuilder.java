@@ -31,7 +31,7 @@ public class ItemBuilder {
 
     public static ItemBuilder of(String url) {
 
-        val builder = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3);
+        val builder = new ItemBuilder(TypeUtil.convertFromLegacy("SKULL_ITEM", 3));
         SkullMeta meta = (SkullMeta) builder.itemMeta;
 
         if (!url.contains("http://textures.minecraft.net/texture/")) meta.setOwner(url);
@@ -80,7 +80,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder name(String name) {
-        itemMeta.setDisplayName(ColorUtils.colored(name));
+        itemMeta.setDisplayName(ColorUtil.colored(name));
         return this;
     }
 
@@ -90,12 +90,12 @@ public class ItemBuilder {
     }
 
     public ItemBuilder lore(String... lore) {
-        itemMeta.setLore(ColorUtils.colored(Arrays.asList(lore)));
+        itemMeta.setLore(ColorUtil.colored(Arrays.asList(lore)));
         return this;
     }
 
     public ItemBuilder lore(List<String> lore) {
-        itemMeta.setLore(ColorUtils.colored(lore));
+        itemMeta.setLore(ColorUtil.colored(lore));
         return this;
     }
 
@@ -106,11 +106,6 @@ public class ItemBuilder {
 
     public ItemBuilder addItemFlags(ItemFlag... itemFlags) {
         itemMeta.addItemFlags(itemFlags);
-        return this;
-    }
-
-    public ItemBuilder setUnbreakable(boolean unbreakable) {
-        itemMeta.spigot().setUnbreakable(unbreakable);
         return this;
     }
 

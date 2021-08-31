@@ -3,13 +3,12 @@ package com.nextplugins.testserver.core.commands;
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.configuration.MessageValue;
 import com.nextplugins.testserver.core.manager.LocationManager;
-import com.nextplugins.testserver.core.utils.ColorUtils;
+import com.nextplugins.testserver.core.utils.ColorUtil;
 import com.nextplugins.testserver.core.utils.MessageUtils;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.command.Context;
 import me.saiintbrisson.minecraft.command.target.CommandTarget;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 /**
@@ -35,7 +34,7 @@ public class WarpCommand {
         val location = locationManager.getLocation(local);
         if (location == null) {
 
-            sender.sendMessage(ColorUtils.colored(
+            sender.sendMessage(ColorUtil.colored(
                     "&cEsta warp não existe, lista de warps válidas:",
                     "&c" + locationManager.getLocationMap().keySet()
             ));
@@ -46,7 +45,7 @@ public class WarpCommand {
         sender.teleport(location);
         MessageUtils.sendSoundAndTitle(
                 MessageValue.get(MessageValue::teleported).replace("%warp%", local.toLowerCase()),
-                Sound.NOTE_PLING, 150
+                "NOTE_PLING", 150
         );
 
     }
@@ -64,7 +63,7 @@ public class WarpCommand {
         val sender = context.getSender();
         locationManager.getLocationMap().put(local, sender.getLocation());
 
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "&aLocalização setada com sucesso."
         ));
 
@@ -83,7 +82,7 @@ public class WarpCommand {
         val sender = context.getSender();
         locationManager.getLocationMap().remove(local);
 
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "&aLocalização deletada com sucesso."
         ));
 

@@ -1,6 +1,6 @@
 package com.nextplugins.testserver.core.commands;
 
-import com.nextplugins.testserver.core.utils.ColorUtils;
+import com.nextplugins.testserver.core.utils.ColorUtil;
 import com.nextplugins.testserver.core.utils.TitleUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,18 +46,18 @@ public class FancyCommand {
         if (player == null) {
 
             if (sender instanceof ConsoleCommandSender) {
-                sender.sendMessage(ColorUtils.colored("&cUtilize /" + context.getLabel() + " <jogador>"));
+                sender.sendMessage(ColorUtil.colored("&cUtilize /" + context.getLabel() + " <jogador>"));
                 return;
             }
 
             clearInventory((Player) sender);
-            sender.sendMessage(ColorUtils.colored("&aVocê limpou o seu inventário com sucesso."));
+            sender.sendMessage(ColorUtil.colored("&aVocê limpou o seu inventário com sucesso."));
             return;
 
         }
 
         clearInventory(player);
-        sender.sendMessage(ColorUtils.colored("&aVocê limpou o inventário de " + player.getName() + " com sucesso."));
+        sender.sendMessage(ColorUtil.colored("&aVocê limpou o inventário de " + player.getName() + " com sucesso."));
 
     }
 
@@ -79,7 +79,7 @@ public class FancyCommand {
         val player = context.getSender();
 
         if (!player.getWorld().getName().equalsIgnoreCase("plot") && !player.hasPermission("nextcore.command.fly.admin")) {
-            player.sendMessage(ColorUtils.colored("&cVocê não pode ativar o modo de voo neste mundo."));
+            player.sendMessage(ColorUtil.colored("&cVocê não pode ativar o modo de voo neste mundo."));
             return;
         }
 
@@ -100,14 +100,14 @@ public class FancyCommand {
                 || player.getItemInHand().getType() == Material.AIR
                 || (player.getItemInHand().getType().getMaxDurability() != 0
                 && !player.getItemInHand().getType().toString().toUpperCase().contains("HELMET"))) {
-            player.sendMessage(ColorUtils.colored("&cEste item não é um item válido para servir como chapéu."));
+            player.sendMessage(ColorUtil.colored("&cEste item não é um item válido para servir como chapéu."));
             return;
         }
 
         val helmet = player.getInventory().getHelmet();
         player.getInventory().setHelmet(player.getItemInHand());
         player.setItemInHand(helmet);
-        player.sendMessage(ColorUtils.colored("&aSe divirta com seu mais novo chapéu."));
+        player.sendMessage(ColorUtil.colored("&aSe divirta com seu mais novo chapéu."));
 
     }
 
@@ -129,41 +129,41 @@ public class FancyCommand {
             try {
                 gameMode = GameMode.valueOf(mode);
             } catch (Exception exception1) {
-                context.sendMessage(ColorUtils.colored("&cEste modo de jogo é inválido."));
+                context.sendMessage(ColorUtil.colored("&cEste modo de jogo é inválido."));
                 return;
             }
         }
 
         if (player != null) {
             player.setGameMode(gameMode);
-            context.sendMessage(ColorUtils.colored("&aVocê alterou o modo de jogo do jogador &f" + player.getName() + " &apara o &f" + GameModeParse.valueOf(gameMode.toString()).getFancyName()));
+            context.sendMessage(ColorUtil.colored("&aVocê alterou o modo de jogo do jogador &f" + player.getName() + " &apara o &f" + GameModeParse.valueOf(gameMode.toString()).getFancyName()));
             return;
         }
 
         if (context.getSender() instanceof ConsoleCommandSender) {
-            context.sendMessage(ColorUtils.colored("&cVocê não pode alterar o modo de jogo do console"));
+            context.sendMessage(ColorUtil.colored("&cVocê não pode alterar o modo de jogo do console"));
             return;
         }
 
         val sender = (Player) context.getSender();
 
         sender.setGameMode(gameMode);
-        context.sendMessage(ColorUtils.colored("&aVocê alterou o seu modo de jogo para &f" + GameModeParse.valueOf(gameMode.toString()).getFancyName()));
+        context.sendMessage(ColorUtil.colored("&aVocê alterou o seu modo de jogo para &f" + GameModeParse.valueOf(gameMode.toString()).getFancyName()));
 
 
     }
 
-@AllArgsConstructor
-public enum GameModeParse {
+    @AllArgsConstructor
+    public enum GameModeParse {
 
-    CREATIVE("Criativo"),
-    SURVIVAL("Sobrevivência"),
-    ADVENTURE("Aventura"),
-    SPECTATOR("Espectador");
+        CREATIVE("Criativo"),
+        SURVIVAL("Sobrevivência"),
+        ADVENTURE("Aventura"),
+        SPECTATOR("Espectador");
 
-    @Getter
-    private final String fancyName;
-}
+        @Getter
+        private final String fancyName;
+    }
 
 
 }

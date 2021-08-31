@@ -2,14 +2,14 @@ package com.nextplugins.testserver.core.api.model.player.storage;
 
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.RemovalCause;
+import com.github.benmanes.caffeine.cache.RemovalListener;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.player.User;
 import com.nextplugins.testserver.core.api.model.player.repository.UserRepository;
 import lombok.Getter;
-import lombok.var;
+import lombok.val;
 import org.bukkit.OfflinePlayer;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,9 +31,10 @@ public final class UserStorage {
 
     @Getter private final AsyncLoadingCache<UUID, User> cache = Caffeine.newBuilder()
             .ticker(System::nanoTime)
-            .maximumSize(10000)
+            .maximumSize(100)
             .expireAfterWrite(5, TimeUnit.MINUTES)
-            .removalListener(this::saveOne)
+            .evictionListener((RemovalListener<UUID, User>) (key, value, cause) -> saveOne(value))
+            .removalListener((key, value, cause) -> saveOne(value))
             .buildAsync(this::selectOne);
 
     @Inject private UserRepository userRepository;
@@ -46,38 +46,72 @@ public final class UserStorage {
 
     }
 
-    private void saveOne(UUID uuid, User user, @NonNull RemovalCause removalCause) {
-        userRepository.update(user);
+    public void saveOne(User account) {
+        userRepository.update(account);
     }
 
-    private @NotNull CompletableFuture<User> selectOne(UUID uuid, @NonNull Executor executor) {
-        return CompletableFuture.completedFuture(userRepository.selectOne(uuid));
+    private User selectOne(UUID owner) {
+        return userRepository.selectOne(owner);
+    }
+
+    /**
+     * Used to get created accounts by uuid
+     *
+     * @param uuid player uuid
+     * @return {@link User} found
+     */
+    @Nullable
+    public User findAccountByName(UUID uuid) {
+
+        try { return cache.get(uuid).get(); } catch (InterruptedException | ExecutionException exception) {
+            Thread.currentThread().interrupt();
+            exception.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * Used to get accounts
+     * If player is online and no have account, we will create a new for them
+     * but, if is offline, will return null
+     *
+     * @param offlinePlayer player
+     * @return {@link User} found
+     */
+    @Nullable
+    public User findAccount(@NotNull OfflinePlayer offlinePlayer) {
+
+        if (offlinePlayer.isOnline()) {
+
+            val player = offlinePlayer.getPlayer();
+            if (player != null) return findAccount(player);
+
+        }
+
+        return findAccountByName(offlinePlayer.getUniqueId());
+
     }
 
     /**
      * Used to get accounts
      *
-     * @param player offline player
-     * @return {@link User} found, if player is online and no have account, return a new account
+     * @param player player to search
+     * @return {@link User} found
      */
-    @Nullable
-    public User findAccount(OfflinePlayer player) {
-        try {
+    @NotNull
+    public User findAccount(@NotNull Player player) {
 
-            var account = cache.get(player.getUniqueId()).get();
-            if (account == null && player.isOnline()) {
+        User account = findAccountByName(player.getUniqueId());
+        if (account == null) {
 
-                account = User.createDefault(player).wrap();
-                put(account);
+            account = User.createDefault(player).wrap();
+            put(account);
 
-            }
-
-            return account;
-
-        } catch (InterruptedException | ExecutionException ignored) {
-            Thread.currentThread().interrupt();
-            return null;
         }
+
+        return account;
+
     }
 
     public void put(User user) {

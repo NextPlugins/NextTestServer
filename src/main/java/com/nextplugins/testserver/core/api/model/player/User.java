@@ -1,10 +1,8 @@
 package com.nextplugins.testserver.core.api.model.player;
 
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
-import com.nextplugins.testserver.core.api.model.group.storage.GroupStorage;
 import lombok.Builder;
 import lombok.Data;
 import lombok.val;
@@ -33,7 +31,7 @@ public class User {
     private String name;
     private UUID uniqueId;
 
-    private Group group;
+    @Nonnull private Group group;
     private List<String> permissions;
 
     public static UserBuilder createDefault(OfflinePlayer player) {
@@ -44,7 +42,7 @@ public class User {
                 .name(player.getName())
                 .uniqueId(player.getUniqueId())
                 .permissions(Lists.newArrayList())
-                .group(instance.getGroupStorage().getGroupByName("Membro"));
+                .group(instance.getGroupStorage().getDefaultGroup());
 
         if (player.isOnline()) {
 
@@ -57,6 +55,10 @@ public class User {
 
         return accountBuilder;
 
+    }
+
+    @Nullable public Player getPlayer() {
+        return offlinePlayer.isOnline() ? offlinePlayer.getPlayer() : null;
     }
 
 }

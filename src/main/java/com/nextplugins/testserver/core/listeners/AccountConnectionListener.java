@@ -3,8 +3,11 @@ package com.nextplugins.testserver.core.listeners;
 import com.google.inject.Inject;
 import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.player.storage.UserStorage;
+import com.nextplugins.testserver.core.configuration.ScoreboardValue;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
+import com.nextplugins.testserver.core.runnables.TagUpdateExecutor;
+import fr.minuskube.netherboard.Netherboard;
 import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -25,9 +28,14 @@ public class AccountConnectionListener implements Listener {
     @EventHandler
     public void loadPlayer(PlayerJoinEvent event) {
 
+        Netherboard.instance().createBoard(event.getPlayer(), ScoreboardValue.get(ScoreboardValue::title));
+
         Bukkit.getScheduler().runTaskAsynchronously(
                 NextTestServer.getInstance(),
-                () -> tablistManager.sendTablist(event.getPlayer())
+                () -> {
+                    tablistManager.sendTablist(event.getPlayer());
+                    TagUpdateExecutor.getInstance().updateTag();
+                }
         );
 
         val spawn = locationManager.getLocation("spawn");

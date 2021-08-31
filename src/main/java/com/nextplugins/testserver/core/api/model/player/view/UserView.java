@@ -7,7 +7,7 @@ import com.henryfabio.minecraft.inventoryapi.viewer.Viewer;
 import com.nextplugins.testserver.core.api.model.player.User;
 import com.nextplugins.testserver.core.utils.DateUtils;
 import com.nextplugins.testserver.core.utils.ItemBuilder;
-import org.bukkit.Material;
+import com.nextplugins.testserver.core.utils.TypeUtil;
 
 /**
  * @author Yuhtin
@@ -44,23 +44,19 @@ public class UserView extends SimpleInventory {
                 )
                 .result()));
 
-        editor.setItem(14, InventoryItem.of(ItemBuilder.of(Material.BOOK_AND_QUILL)
-                .name("&6Editar grupo")
-                .lore(
-                        " &7Clique aqui para mudar o grupo",
-                        " &7do jogador &e" + user.getName() + "",
-                        "",
-                        "  &aGrupo atual &8➜ &b" + user.getGroup().getName(),
-                        ""
-                )
-                .result())
-                .defaultCallback(callback -> {
+        editor.setItem(14, InventoryItem.of(ItemBuilder.of(TypeUtil.convertFromLegacy("BOOK_AND_QUILL", 0).getType())
+                        .name("&6Editar grupo")
+                        .lore(
+                                " &7Clique aqui para mudar o grupo",
+                                " &7do jogador &e" + user.getName() + "",
+                                "",
+                                "  &aGrupo atual &8➜ &b" + user.getGroup().getName(),
+                                ""
+                        )
+                        .result())
+                .defaultCallback(callback -> callback.getPlayer().performCommand("setgrupo")));
 
-
-
-                }));
-
-        editor.setItem(15, InventoryItem.of(ItemBuilder.of(Material.EMPTY_MAP)
+        editor.setItem(15, InventoryItem.of(ItemBuilder.of(TypeUtil.convertFromLegacy("EMPTY_MAP", 0).getType())
                 .name("&6Visualizar Permissões")
                 .lore(
                         " &7Clique aqui para ver as permissões",
@@ -70,7 +66,8 @@ public class UserView extends SimpleInventory {
                         "  &aPermissões do grupo &8➜ &b" + user.getGroup().getPermissions().size() + " permissões",
                         ""
                 )
-                .result()));
+                .result())
+                .defaultCallback(callback -> callback.getPlayer().performCommand("grupo perms")));
 
     }
 }

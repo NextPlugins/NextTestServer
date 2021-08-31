@@ -2,7 +2,7 @@ package com.nextplugins.testserver.core.commands;
 
 import com.google.common.collect.Lists;
 import com.nextplugins.testserver.core.NextTestServer;
-import com.nextplugins.testserver.core.utils.ColorUtils;
+import com.nextplugins.testserver.core.utils.ColorUtil;
 import com.nextplugins.testserver.core.utils.PluginInformationUtils;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.command.Context;
@@ -21,8 +21,8 @@ import java.util.List;
 public class UsualCommand {
 
     @Command(
-            name = "plugins",
-            aliases = {"about", "?", "help", "ajuda", "plugin"},
+            name = "ajuda",
+            aliases = {"about", "plugins", "help", "?", "plugin"},
             description = "Ver as informações do servidor de teste",
             target = CommandTarget.PLAYER
     )
@@ -30,7 +30,7 @@ public class UsualCommand {
 
         Player sender = context.getSender();
 
-        sender.sendMessage(ColorUtils.colored(
+        sender.sendMessage(ColorUtil.colored(
                 "",
                 "&fEste servidor foi feito pela equipe &bNextPlugins",
                 "&fO coração do servidor é o plugin &a&nNextTestServer v" + NextTestServer.getInstance().getDescription().getVersion(),
@@ -41,7 +41,7 @@ public class UsualCommand {
     }
 
     @Command(
-            name = "plugins.plugins",
+            name = "ajuda.plugins",
             description = "Ver as informações do servidor de teste",
             target = CommandTarget.PLAYER
     )
@@ -55,7 +55,7 @@ public class UsualCommand {
         for (Plugin plugin : plugins) {
 
             List<String> authors = plugin.getDescription().getAuthors();
-            if (authors.size() < 1) {
+            if (authors.isEmpty()) {
 
                 otherPlugins.add(plugin.getName());
                 continue;
@@ -66,8 +66,8 @@ public class UsualCommand {
             else otherPlugins.add(plugin.getName());
         }
 
-        context.getSender().sendMessage(ColorUtils.colored(
-                String.format("&fTodos os plugins usados no &6Lyces&f: &8(%s plugins)", plugins.size()),
+        context.getSender().sendMessage(ColorUtil.colored(
+                String.format("&fTodos os plugins usados no &bNextTestServer&f: &8(%s plugins)", plugins.size()),
                 "",
                 String.format("&fPlugins &epróprios&f: &8(%s plugins)", ownPlugins.size()),
                 PluginInformationUtils.concatPlugins(ownPlugins),

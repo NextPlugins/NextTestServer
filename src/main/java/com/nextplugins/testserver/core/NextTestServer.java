@@ -14,6 +14,7 @@ import com.nextplugins.testserver.core.guice.PluginModule;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.manager.ScoreboardManager;
 import com.nextplugins.testserver.core.manager.TablistManager;
+import com.nextplugins.testserver.core.runnables.TagUpdateExecutor;
 import lombok.Getter;
 import lombok.val;
 import org.bukkit.configuration.ConfigurationSection;
@@ -59,11 +60,14 @@ public final class NextTestServer extends JavaPlugin {
         ConfigurationRegistry.enable(this);
         PlaceholderRegistry.enable(this);
         ListenerRegistry.enable(this);
+        TaskRegistry.enable(this);
 
         inventoryRegistry.init();
 
         groupStorage.init();
         userStorage.init();
+
+        injector.injectMembers(TagUpdateExecutor.getInstance());
 
         tablistManager.init();
         locationManager.init();

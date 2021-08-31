@@ -1,11 +1,14 @@
 package com.nextplugins.testserver.core.api.model.player.utils;
 
 import com.google.common.collect.Lists;
+import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
+import com.nextplugins.testserver.core.api.model.group.event.GroupUpdateEvent;
 import com.nextplugins.testserver.core.api.model.player.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.val;
+import org.bukkit.Bukkit;
 
 import java.util.List;
 
@@ -21,6 +24,14 @@ public class UserUtil {
 
         user.setGroup(group);
         updateAttachment(user);
+
+        val player = user.getPlayer();
+        if (player == null) {
+            NextTestServer.getInstance().getLogger().info("jogador off");
+            return;
+        }
+
+        Bukkit.getPluginManager().callEvent(new GroupUpdateEvent(player, group));
 
     }
 
@@ -59,8 +70,12 @@ public class UserUtil {
 
         for (String permission : permissions) {
 
-            if (permission.equals("*")) user.getOfflinePlayer().setOp(true);
-            attachment.setPermission(permission, true);
+            if (permission.equals("*")) {
+                user.getOfflinePlayer().setOp(true);
+                break;
+            }
+
+            attachment.setPermission(permission, !permission.startsWith("-"));
 
         }
 

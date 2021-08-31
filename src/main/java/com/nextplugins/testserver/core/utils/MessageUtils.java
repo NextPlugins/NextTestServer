@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MessageUtils {
 
-    public static void sendSoundAndTitle(String message, Sound sound, int time) {
+    public static void sendSoundAndTitle(String message, String sound, int time) {
         Object[] titlePackets = TitleUtils.buildTitlePackets(message, time, time, time);
 
         Bukkit.getOnlinePlayers().forEach(target -> {
@@ -20,7 +20,7 @@ public class MessageUtils {
         });
     }
 
-    public static void sendSoundAndTitle(Object[] titlePackets, Sound sound) {
+    public static void sendSoundAndTitle(Object[] titlePackets, String sound) {
         Bukkit.getOnlinePlayers().forEach(target -> {
             TitleUtils.sendTitlePacket(target, titlePackets);
             SoundUtils.sendSound(target, sound);
@@ -30,7 +30,7 @@ public class MessageUtils {
     public static String joinStrings(List<String> list) {
         StringBuilder builder = new StringBuilder();
         for (String line : list) {
-            builder.append(ColorUtils.colored(line)).append("\n");
+            builder.append(ColorUtil.colored(line)).append("\n");
         }
 
         return builder.toString();

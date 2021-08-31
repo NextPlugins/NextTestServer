@@ -23,7 +23,7 @@ public final class UserAdapter implements SQLResultAdapter<User> {
         OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(resultSet.get("owner")));
 
         Group group = groupStorage.getGroupByName(resultSet.get("userGroup"));
-        if (group == null) group = groupStorage.getGroupByName("Membro");
+        if (group == null) group = groupStorage.getDefaultGroup();
 
         val accountBuilder = player.isOnline()
                 ? User.createDefault(player.getPlayer())
