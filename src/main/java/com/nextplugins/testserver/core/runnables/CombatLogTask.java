@@ -5,7 +5,6 @@ import com.nextplugins.testserver.core.utils.ActionBarUtils;
 import lombok.Getter;
 import lombok.val;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.Map;
