@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Collection;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -29,11 +28,10 @@ import java.util.concurrent.TimeUnit;
 @Singleton
 public final class UserStorage {
 
-    @Getter private final AsyncLoadingCache<UUID, User> cache = Caffeine.newBuilder()
-            .ticker(System::nanoTime)
+    @Getter private final AsyncLoadingCache<String, User> cache = Caffeine.newBuilder()
             .maximumSize(100)
             .expireAfterWrite(5, TimeUnit.MINUTES)
-            .evictionListener((RemovalListener<UUID, User>) (key, value, cause) -> saveOne(value))
+            .evictionListener((RemovalListener<String, User>) (key, value, cause) -> saveOne(value))
             .removalListener((key, value, cause) -> saveOne(value))
             .buildAsync(this::selectOne);
 
@@ -50,20 +48,20 @@ public final class UserStorage {
         userRepository.update(account);
     }
 
-    private User selectOne(UUID owner) {
+    private User selectOne(String owner) {
         return userRepository.selectOne(owner);
     }
 
     /**
-     * Used to get created accounts by uuid
+     * Used to get created accounts by name
      *
-     * @param uuid player uuid
+     * @param name player's name
      * @return {@link User} found
      */
     @Nullable
-    public User findAccountByName(UUID uuid) {
+    public User findUserByName(String name) {
 
-        try { return cache.get(uuid).get(); } catch (InterruptedException | ExecutionException exception) {
+        try { return cache.get(name).get(); } catch (InterruptedException | ExecutionException exception) {
             Thread.currentThread().interrupt();
             exception.printStackTrace();
             return null;
@@ -89,7 +87,7 @@ public final class UserStorage {
 
         }
 
-        return findAccountByName(offlinePlayer.getUniqueId());
+        return findUserByName(offlinePlayer.getName());
 
     }
 
@@ -102,7 +100,7 @@ public final class UserStorage {
     @NotNull
     public User findAccount(@NotNull Player player) {
 
-        User account = findAccountByName(player.getUniqueId());
+        User account = findUserByName(player.getName());
         if (account == null) {
 
             account = User.createDefault(player).wrap();
@@ -115,7 +113,7 @@ public final class UserStorage {
     }
 
     public void put(User user) {
-        cache.put(user.getUniqueId(), CompletableFuture.completedFuture(user));
+        cache.put(user.getName(), CompletableFuture.completedFuture(user));
     }
 
     public void unload() {

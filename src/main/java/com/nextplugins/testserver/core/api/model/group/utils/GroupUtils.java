@@ -50,7 +50,7 @@ public class GroupUtils {
             for (CompletableFuture<User> player : userStorage.getOnlinePlayers()) {
 
                 val user = player.get();
-                if (user.getGroup().getSorter() != group.getSorter()) continue;
+                if (!user.getGroup().getName().equals(group.getName())) continue;
 
                 UserUtil.updateAttachment(user);
 

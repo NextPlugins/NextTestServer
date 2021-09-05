@@ -6,28 +6,27 @@ import com.nextplugins.testserver.core.api.model.player.repository.adapter.UserA
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.UUID;
 
 @Singleton
 public final class UserRepository {
 
-    private static final String TABLE = "data_players";
+    private static final String TABLE = "nextcore_data";
 
     @Inject private SQLExecutor sqlExecutor;
 
     public void createTable() {
         sqlExecutor.updateQuery("CREATE TABLE IF NOT EXISTS " + TABLE + "(" +
-                "owner CHAR(36) NOT NULL PRIMARY KEY UNIQUE," +
+                "player CHAR(36) NOT NULL PRIMARY KEY UNIQUE," +
                 "userGroup TEXT," +
                 "permissions TEXT" +
                 ");"
         );
     }
 
-    public User selectOne(UUID owner) {
+    public User selectOne(String player) {
         return sqlExecutor.resultOneQuery(
                 "SELECT * FROM " + TABLE + " WHERE owner = ?",
-                statement -> statement.set(1, owner.toString()),
+                statement -> statement.set(1, player),
                 UserAdapter.class
         );
     }
@@ -38,7 +37,7 @@ public final class UserRepository {
                 String.format("REPLACE INTO %s VALUES(?,?,?)", TABLE),
                 statement -> {
 
-                    statement.set(1, user.getUniqueId().toString());
+                    statement.set(1, user.getName());
                     statement.set(2, user.getGroup().getName());
                     statement.set(3, String.join(",", user.getPermissions()));
 

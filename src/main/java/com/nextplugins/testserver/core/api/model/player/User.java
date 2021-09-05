@@ -29,7 +29,6 @@ public class User {
     @Nullable private PermissionAttachment attachment;
 
     private String name;
-    private UUID uniqueId;
 
     @Nonnull private Group group;
     private List<String> permissions;
@@ -40,7 +39,6 @@ public class User {
         val accountBuilder = User.create()
                 .offlinePlayer(player)
                 .name(player.getName())
-                .uniqueId(player.getUniqueId())
                 .permissions(Lists.newArrayList())
                 .group(instance.getGroupStorage().getDefaultGroup());
 

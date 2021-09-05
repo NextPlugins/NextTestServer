@@ -14,7 +14,14 @@ public class TagUpdateExecutor {
     @Getter private static final TagUpdateExecutor instance = new TagUpdateExecutor();
     @Inject private UserStorage userStorage;
 
+    // idk if make changes or otimize
+    private boolean executing;
+
     public void updateTag() {
+
+        if (executing) return;
+        executing = true;
+
         val plugin = NextTestServer.getInstance();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             for (val player : Bukkit.getOnlinePlayers()) {
@@ -43,6 +50,8 @@ public class TagUpdateExecutor {
 
                 player.setScoreboard(scoreboard);
             }
+
+            executing = false;
         });
     }
 }
