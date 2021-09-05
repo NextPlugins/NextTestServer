@@ -25,7 +25,7 @@ public final class UserRepository {
 
     public User selectOne(String player) {
         return sqlExecutor.resultOneQuery(
-                "SELECT * FROM " + TABLE + " WHERE owner = ?",
+                "SELECT * FROM " + TABLE + " WHERE player = ?",
                 statement -> statement.set(1, player),
                 UserAdapter.class
         );
