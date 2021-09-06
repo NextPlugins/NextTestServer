@@ -32,12 +32,8 @@ public final class PlaceholderHook extends PlaceholderExpansion {
         if (player == null) return "&cOcorreu um erro!";
 
         if (params.equalsIgnoreCase("group")) {
-
             val account = plugin.getUserStorage().findAccount(player);
-            if (account == null) return "&cOcorreu um erro!";
-
             return account.getGroup().getPrefix();
-
         }
 
         return "Placeholder inválida";

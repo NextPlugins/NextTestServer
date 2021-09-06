@@ -27,15 +27,11 @@ public class AccountConnectionListener implements Listener {
 
     @EventHandler
     public void loadPlayer(PlayerJoinEvent event) {
-
         Netherboard.instance().createBoard(event.getPlayer(), ScoreboardValue.get(ScoreboardValue::title));
 
         Bukkit.getScheduler().runTaskAsynchronously(
                 NextTestServer.getInstance(),
-                () -> {
-                    tablistManager.sendTablist(event.getPlayer());
-                    TagUpdateExecutor.getInstance().updateTag();
-                }
+                () -> tablistManager.sendTablist(event.getPlayer())
         );
 
         val spawn = locationManager.getLocation("spawn");
@@ -43,17 +39,11 @@ public class AccountConnectionListener implements Listener {
 
         spawn.getChunk().load(true);
         event.getPlayer().teleport(spawn);
-
     }
 
     @EventHandler
     public void unloadAttachment(PlayerQuitEvent event) {
-
-        val user = userStorage.findAccount(event.getPlayer());
-        if (user == null) return;
-
-        event.getPlayer().removeAttachment(user.getAttachment());
-
+        userStorage.getCache().synchronous().invalidate(event.getPlayer().getName());
     }
 
 }

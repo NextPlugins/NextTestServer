@@ -21,7 +21,8 @@ public final class UserAdapter implements SQLResultAdapter<User> {
     @Override
     public User adaptResult(SimpleResultSet resultSet) {
 
-        OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(resultSet.get("owner")));
+        String playerName = resultSet.get("player");
+        OfflinePlayer player = Bukkit.getOfflinePlayer(playerName);
 
         Group group = groupStorage.getGroupByName(resultSet.get("userGroup"));
         if (group == null) group = groupStorage.getDefaultGroup();

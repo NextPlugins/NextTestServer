@@ -4,7 +4,8 @@ import com.google.inject.Inject;
 import com.nextplugins.testserver.core.configuration.MessageValue;
 import com.nextplugins.testserver.core.manager.LocationManager;
 import com.nextplugins.testserver.core.utils.ColorUtil;
-import com.nextplugins.testserver.core.utils.MessageUtils;
+import com.nextplugins.testserver.core.utils.SoundUtils;
+import com.nextplugins.testserver.core.utils.TitleUtils;
 import lombok.val;
 import me.saiintbrisson.minecraft.command.annotation.Command;
 import me.saiintbrisson.minecraft.command.command.Context;
@@ -17,7 +18,8 @@ import org.bukkit.entity.Player;
  */
 public class WarpCommand {
 
-    @Inject private LocationManager locationManager;
+    @Inject
+    private LocationManager locationManager;
 
     @Command(
             name = "warp",
@@ -43,11 +45,13 @@ public class WarpCommand {
         }
 
         sender.teleport(location);
-        MessageUtils.sendSoundAndTitle(
+        TitleUtils.sendTitle(
+                sender,
                 MessageValue.get(MessageValue::teleported).replace("%warp%", local.toLowerCase()),
-                "NOTE_PLING", 150
+                20, 40, 20
         );
 
+        SoundUtils.sendSound(sender, "NOTE_PLING");
     }
 
     @Command(

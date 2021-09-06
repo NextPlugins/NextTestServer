@@ -45,6 +45,11 @@ public final class UserStorage {
     }
 
     public void saveOne(User account) {
+        if (account.getAttachment() != null) {
+            val player = account.getPlayer();
+            if (player != null) player.removeAttachment(account.getAttachment());
+        }
+
         userRepository.update(account);
     }
 

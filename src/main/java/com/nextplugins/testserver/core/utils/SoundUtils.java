@@ -15,8 +15,12 @@ public final class SoundUtils {
 
     public static void sendSound(Player player, String soundName) {
 
-        Sound sound = Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
-        try { sound = Sound.valueOf(soundName);} catch (Exception exception) {}
+        Sound sound;
+        try {
+            sound = Sound.valueOf(soundName);
+        } catch (Exception exception) {
+            sound = Sound.BLOCK_NOTE_BLOCK_PLING;
+        }
 
         sendSound(player, sound);
 
