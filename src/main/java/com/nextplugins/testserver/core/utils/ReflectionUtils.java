@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
+import java.lang.reflect.Method;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -58,6 +59,22 @@ public final class ReflectionUtils {
      * <p>
      * Performance is not a concern for these specific statically initialized values.
      */
+
+    public static Method jsonComponentMethod;
+    private static JsonComponent jsonComponent;
+
+    static {
+        try {
+            Class<?>[] declaredClasses = ClazzContainer.getIChatBaseComponent().getDeclaredClasses();
+
+            if (declaredClasses.length > 0) {
+                jsonComponentMethod = declaredClasses[0].getMethod("a", String.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static final String
             VERSION = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     /**
@@ -157,6 +174,36 @@ public final class ReflectionUtils {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    public static JsonComponent getJsonComponent() {
+        if (jsonComponent == null) {
+            jsonComponent = new JsonComponent();
+        }
+
+        return jsonComponent;
+    }
+
+    public static Object getAsIChatBaseComponent(final String text) throws Exception {
+        if (ServerVersion.isCurrentEqualOrHigher(ServerVersion.v1_16_R1)) {
+            return getJsonComponent().parseProperty(text);
+        }
+
+        if (ServerVersion.isCurrentLower(ServerVersion.v1_8_R2)) {
+            Class<?> chatSerializer = getPacketClass(null, "ChatSerializer");
+            return ClazzContainer.getIChatBaseComponent().cast(
+                    chatSerializer.getMethod("a", String.class).invoke(chatSerializer, "{\"text\":\"" + text + "\"}"));
+        }
+
+        return jsonComponentMethod.invoke(ClazzContainer.getIChatBaseComponent(), "{\"text\":\"" + text + "\"}");
+    }
+
+    public static Class<?> getPacketClass(String newPackageName, String name) throws ClassNotFoundException {
+        if (ServerVersion.isCurrentLower(ServerVersion.v1_17_R1) || newPackageName == null) {
+            newPackageName = "net.minecraft.server." + ServerVersion.getArrayVersion()[3];
+        }
+
+        return Class.forName(newPackageName + "." + name);
     }
 
     /**

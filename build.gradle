@@ -46,11 +46,7 @@ dependencies {
     implementation 'com.github.HenryFabio:inventory-api:2.0.3'
     implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
 
-    implementation "com.google.inject:guice:4.0"
-    implementation "javax.inject:javax.inject:1"
-    implementation "aopalliance:aopalliance:1.0"
-    implementation "org.ow2.asm:asm:8.0.1"
-
+    implementation "com.google.inject:guice:5.0.1"
     def lombok = 'org.projectlombok:lombok:1.18.16'
     compileOnly lombok
     annotationProcessor lombok
