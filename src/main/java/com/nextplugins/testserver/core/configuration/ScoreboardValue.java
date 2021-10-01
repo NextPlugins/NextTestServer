@@ -30,6 +30,7 @@ public final class ScoreboardValue implements ConfigurationInjectable {
 
     @ConfigField("title") private String title;
     @ConfigField("lines") private List<String> lines;
+    @ConfigField("worldsDisabled") private List<String> worldsDisabled;
 
     public static <T> T get(Function<ScoreboardValue, T> function) {
         return function.apply(instance);

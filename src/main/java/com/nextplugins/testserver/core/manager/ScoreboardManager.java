@@ -34,6 +34,12 @@ public class ScoreboardManager {
 
     public void updateScoreboard(Player player) {
 
+        for (String s : ScoreboardValue.get(ScoreboardValue::worldsDisabled)) {
+            if (player.getWorld().getName().equalsIgnoreCase(s)) {
+                return;
+            }
+        }
+
         val scoreboard = getPlayerScoreboard(player);
 
         val lines = ScoreboardValue.get(ScoreboardValue::lines);

@@ -12,3 +12,6 @@ scoreboard:
     - '  &fTempo online: &e☾%onlinetime_time%'
     - '&0'
     - '      &7nextplugins.com.br'
+
+worldsDisabled:
+  - 'arena'

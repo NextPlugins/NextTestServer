@@ -26,7 +26,7 @@ public class GroupCommand {
 
     @Command(
             name = "setgrupo",
-            permission = "nextcore.setgroup",
+            permission = "nextcore.group.set",
             usage = "setgrupo <jogador> <grupo>",
             async = true
     )
@@ -69,7 +69,7 @@ public class GroupCommand {
     @Command(
             name = "grupo",
             aliases = {"editgrupo", "editargrupo"},
-            permission = "nextcore.editgrupo",
+            permission = "nextcore.group.edit",
             async = true
     )
     public void onGroupCommand(Context<CommandSender> context) {
@@ -120,7 +120,7 @@ public class GroupCommand {
     @Command(
             name = "grupo.criar",
             aliases = {"create"},
-            permission = "nextcore.criargrupo",
+            permission = "nextcore.group.create",
             usage = "grupo criar <nome> <prefix>",
             async = true
     )
@@ -180,7 +180,7 @@ public class GroupCommand {
     @Command(
             name = "grupo.add",
             aliases = {"adicionar"},
-            permission = "nextcore.editgrupo",
+            permission = "nextcore.group.edit",
             usage = "grupo add <grupo> <permissao>",
             async = true
     )

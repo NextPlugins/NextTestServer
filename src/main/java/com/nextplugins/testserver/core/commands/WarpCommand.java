@@ -25,6 +25,7 @@ public class WarpCommand {
             name = "warp",
             aliases = {"locais"},
             usage = "warp <local>",
+            permission = "nextcore.usewarp",
             target = CommandTarget.PLAYER,
             async = true
     )
@@ -58,6 +59,7 @@ public class WarpCommand {
             name = "setwarp",
             aliases = {"setlocal"},
             usage = "setwarp <local>",
+            permission = "nextcore.createwarp",
             target = CommandTarget.PLAYER,
             async = true
     )
@@ -77,6 +79,7 @@ public class WarpCommand {
             name = "delwarp",
             aliases = {"dellocal"},
             usage = "delwarp <local>",
+            permission = "nextcore.createwarp",
             target = CommandTarget.PLAYER,
             async = true
     )
