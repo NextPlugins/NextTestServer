@@ -50,7 +50,7 @@ public final class LocationManager {
     }
 
     public Location getLocation(String name) {
-        return locationMap.get(name);
+        return locationMap.getOrDefault(name, null);
     }
 
 }

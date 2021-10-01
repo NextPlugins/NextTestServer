@@ -34,6 +34,8 @@ public class AccountConnectionListener implements Listener {
                 () -> tablistManager.sendTablist(event.getPlayer())
         );
 
+        NextTestServer.getInstance().getScoreboardManager().updateScoreboard(event.getPlayer());
+
         val spawn = locationManager.getLocation("spawn");
         if (spawn == null) return;
 

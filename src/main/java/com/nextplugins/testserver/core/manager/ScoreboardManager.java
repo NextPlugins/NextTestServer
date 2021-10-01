@@ -33,23 +33,23 @@ public class ScoreboardManager {
     }
 
     public void updateScoreboard(Player player) {
-
-        for (String s : ScoreboardValue.get(ScoreboardValue::worldsDisabled)) {
-            if (player.getWorld().getName().equalsIgnoreCase(s)) {
-                return;
+        Bukkit.getScheduler().runTaskAsynchronously(NextTestServer.getInstance(), () -> {
+            for (String s : ScoreboardValue.get(ScoreboardValue::worldsDisabled)) {
+                if (player.getWorld().getName().equalsIgnoreCase(s)) {
+                    return;
+                }
             }
-        }
 
-        val scoreboard = getPlayerScoreboard(player);
+            val scoreboard = getPlayerScoreboard(player);
 
-        val lines = ScoreboardValue.get(ScoreboardValue::lines);
-        for (int i = 0; i < lines.size(); i++) {
+            val lines = ScoreboardValue.get(ScoreboardValue::lines);
+            for (int i = 0; i < lines.size(); i++) {
 
-            val line = lines.get(lines.size() - (1 + i));
-            scoreboard.set(PlaceholderAPI.setPlaceholders(player, line), i);
+                val line = lines.get(lines.size() - (1 + i));
+                scoreboard.set(PlaceholderAPI.setPlaceholders(player, line), i);
 
-        }
-
+            }
+        });
     }
 
     public BPlayerBoard getPlayerScoreboard(Player player) {

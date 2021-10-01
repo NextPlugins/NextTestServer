@@ -1,6 +1,7 @@
 package com.nextplugins.testserver.core.api.model.player.utils;
 
 import com.google.common.collect.Lists;
+import com.nextplugins.testserver.core.NextTestServer;
 import com.nextplugins.testserver.core.api.model.group.Group;
 import com.nextplugins.testserver.core.api.model.group.event.GroupUpdateEvent;
 import com.nextplugins.testserver.core.api.model.player.User;
@@ -27,7 +28,7 @@ public class UserUtil {
         val player = user.getPlayer();
         if (player == null) return;
 
-        Bukkit.getPluginManager().callEvent(new GroupUpdateEvent(player, group));
+        Bukkit.getScheduler().runTask(NextTestServer.getInstance(), () -> Bukkit.getPluginManager().callEvent(new GroupUpdateEvent(player, group)));
 
     }
 

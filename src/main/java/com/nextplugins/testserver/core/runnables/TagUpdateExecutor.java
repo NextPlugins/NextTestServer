@@ -8,13 +8,13 @@ import lombok.Getter;
 import lombok.val;
 import lombok.var;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 public class TagUpdateExecutor {
 
     @Getter private static final TagUpdateExecutor instance = new TagUpdateExecutor();
     @Inject private UserStorage userStorage;
 
-    // idk if make changes or otimize
     private boolean executing;
 
     public void updateTag() {
@@ -33,7 +33,7 @@ public class TagUpdateExecutor {
 
                     val teamIdentifier = group.getSorter() + group.getName();
                     var prefix = group.getPrefix() + " ";
-                    var suffix = ColorUtil.colored(" &7[#NEXT]");
+                    var suffix = "";
 
                     if (prefix.length() > 16) prefix = prefix.substring(0, 16);
                     if (suffix.length() > 16) suffix = suffix.substring(0, 16);
@@ -42,6 +42,7 @@ public class TagUpdateExecutor {
                     if (team == null) {
                         team = scoreboard.registerNewTeam(teamIdentifier);
                         team.setPrefix(prefix);
+                        team.setColor(ChatColor.GRAY);
                         team.setSuffix(suffix);
                     }
 
