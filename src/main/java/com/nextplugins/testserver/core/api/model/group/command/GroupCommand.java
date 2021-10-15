@@ -48,15 +48,6 @@ public class GroupCommand {
         }
 
         val account = userStorage.findAccount(player);
-        if (account == null) {
-
-            sender.sendMessage(ColorUtil.colored(
-                    "&cOcorreu um erro, tente novamente quando este jogador entrar no servidor."
-            ));
-            return;
-
-
-        }
 
         UserUtil.changeGroup(account, group);
 

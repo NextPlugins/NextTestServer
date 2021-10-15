@@ -82,39 +82,16 @@ public final class UserStorage {
      * @param offlinePlayer player
      * @return {@link User} found
      */
-    @Nullable
-    public User findAccount(@NotNull OfflinePlayer offlinePlayer) {
-
-        if (offlinePlayer.isOnline()) {
-
-            val player = offlinePlayer.getPlayer();
-            if (player != null) return findAccount(player);
-
-        }
-
-        return findUserByName(offlinePlayer.getName());
-
-    }
-
-    /**
-     * Used to get accounts
-     *
-     * @param player player to search
-     * @return {@link User} found
-     */
-    @NotNull
-    public User findAccount(@NotNull Player player) {
-
-        User account = findUserByName(player.getName());
+    public @NotNull User findAccount(@NotNull OfflinePlayer offlinePlayer) {
+        User account = findUserByName(offlinePlayer.getName());
         if (account == null) {
 
-            account = User.createDefault(player).wrap();
+            account = User.createDefault(offlinePlayer).wrap();
             put(account);
 
         }
 
         return account;
-
     }
 
     public void put(User user) {
