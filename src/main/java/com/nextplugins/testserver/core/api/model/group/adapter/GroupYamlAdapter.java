@@ -24,7 +24,7 @@ public final class GroupYamlAdapter implements YamlAdapter<Group> {
                 .sorter(groupConfig.getString("sorter").charAt(0))
                 .priority(groupConfig.getInt("priority"))
                 .permissions(section.getStringList("permissions"))
-                .defaultGroup(section.getBoolean("default", false))
+                .defaultGroup(groupConfig.getBoolean("default", false))
                 .build();
 
     }
