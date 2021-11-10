@@ -37,7 +37,7 @@ public class AccountConnectionListener implements Listener {
         NextTestServer.getInstance().getScoreboardManager().updateScoreboard(event.getPlayer());
 
         val spawn = locationManager.getLocation("spawn");
-        if (spawn == null) return;
+        if (spawn == null || spawn.getWorld() == null) return;
 
         spawn.getChunk().load(true);
         event.getPlayer().teleport(spawn);

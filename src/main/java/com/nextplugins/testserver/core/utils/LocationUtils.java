@@ -17,6 +17,8 @@ public final class LocationUtils {
     }
 
     public static String toString(Location l) {
+        if (l == null || l.getWorld() == null) return null;
+
         return l.getWorld().getName() + ","
                 + l.getX() + ","
                 + l.getY() + ","

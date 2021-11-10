@@ -39,7 +39,10 @@ public final class LocationManager {
         val configuration = YamlConfiguration.loadConfiguration(file);
 
         for (val entry : locationMap.entrySet()) {
-            configuration.set("locations." + entry.getKey(), LocationUtils.toString(entry.getValue()));
+            val value = LocationUtils.toString(entry.getValue());
+            if (value == null) continue;
+
+            configuration.set("locations." + entry.getKey(), value);
         }
 
         try {

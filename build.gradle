@@ -31,24 +31,22 @@ repositories {
 }
 
 dependencies {
-
     compileOnly 'org.spigotmc:spigot:1.17.1-R0.1-SNAPSHOT'
     compileOnly 'com.github.PlaceholderAPI:PlaceholderAPI:2.10.9'
 
     implementation 'com.github.HenryFabio.configuration-injector:bukkit:main-SNAPSHOT'
     implementation 'com.github.SaiintBrisson.command-framework:bukkit:1.2.0'
     implementation 'com.github.ben-manes.caffeine:caffeine:2.9.0' // 3.0.0 or higher is for java 11+
-    implementation 'fr.minuskube:netherboard-bukkit:1.2.1'
+    implementation 'fr.minuskube:netherboard-bukkit:1.2.2'
     implementation fileTree('libs')
 
     implementation 'com.github.HenryFabio:inventory-api:2.0.3'
     implementation 'com.github.HenryFabio:sql-provider:9561f20fd2'
 
     implementation "com.google.inject:guice:5.0.1"
-    def lombok = 'org.projectlombok:lombok:1.18.16'
+    def lombok = 'org.projectlombok:lombok:1.18.22'
     compileOnly lombok
     annotationProcessor lombok
-
 }
 
 bukkit {
