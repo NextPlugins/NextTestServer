@@ -26,7 +26,6 @@ public class Group {
     private final boolean defaultGroup;
 
     public static Group createDefault(String name, String coloredName) {
-
         return Group.builder()
                 .name(name)
                 .resumedPrefix("&c" + name)
@@ -36,7 +35,6 @@ public class Group {
                 .sorter('z')
                 .permissions(Lists.newArrayList())
                 .build();
-
     }
 
 }

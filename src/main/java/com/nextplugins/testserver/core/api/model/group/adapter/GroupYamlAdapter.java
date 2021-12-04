@@ -15,7 +15,6 @@ public final class GroupYamlAdapter implements YamlAdapter<Group> {
 
     @Override
     public Group adapt(String key, ConfigurationSection section) {
-
         ConfigurationSection groupConfig = section.getConfigurationSection("config");
 
         return Group.builder()
@@ -26,12 +25,10 @@ public final class GroupYamlAdapter implements YamlAdapter<Group> {
                 .permissions(section.getStringList("permissions"))
                 .defaultGroup(groupConfig.getBoolean("default", false))
                 .build();
-
     }
 
     @Override
     public void adapt(Group group, ConfigurationSection section) {
-
         val path = group.getName();
         val configPath = group.getName() + ".config";
 
@@ -40,15 +37,14 @@ public final class GroupYamlAdapter implements YamlAdapter<Group> {
         val permissions = group.getPermissions();
         val priority = group.getPriority();
         val sorter = group.getSorter();
+        val isDefault = group.isDefaultGroup();
 
         section.set(configPath + ".prefix", prefix);
         section.set(configPath + ".resumedPrefix", resumedPrefix);
         section.set(configPath + ".priority", priority);
         section.set(configPath + ".sorter", sorter);
-
+        section.set(configPath + ".default", isDefault);
         section.set(path + ".permissions", permissions);
-
-
     }
 
 }

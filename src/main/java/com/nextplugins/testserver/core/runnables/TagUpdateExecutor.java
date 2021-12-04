@@ -42,7 +42,6 @@ public class TagUpdateExecutor {
                     if (team == null) {
                         team = scoreboard.registerNewTeam(teamIdentifier);
                         team.setPrefix(prefix);
-                        team.setColor(ChatColor.GRAY);
                         team.setSuffix(suffix);
                     }
 
